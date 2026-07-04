@@ -1,21 +1,3 @@
-function applyOfficialReunionLogo() {
-  if (!window.MORANT_REUNION_LOGO) return;
-  const logo = document.querySelector('.hero-logo');
-  if (logo) {
-    logo.innerHTML = `<img class="official-reunion-logo" src="${window.MORANT_REUNION_LOGO}" alt="Morant Family Reunion 2026 San Antonio Texas logo">`;
-  }
-  const mini = document.querySelector('.mini-logo');
-  if (mini) {
-    mini.innerHTML = `<img class="mini-reunion-logo-img" src="${window.MORANT_REUNION_LOGO}" alt="Morant Family Reunion 2026 logo"><b>2026</b>`;
-  }
-}
-(function loadOfficialLogoData(){
-  const script = document.createElement('script');
-  script.src = 'logo-data.js';
-  script.onload = applyOfficialReunionLogo;
-  document.head.appendChild(script);
-})();
-
 const data = window.MORANT_FAMILY_DATA;
 const branchGrid = document.querySelector('#branchGrid');
 const branchSelect = document.querySelector('#branchSelect');
@@ -46,6 +28,40 @@ const getNotifications = () => getStored('morantNotificationSignups');
 const saveNotifications = items => setStored('morantNotificationSignups', items);
 const getRegistrations = () => getStored('morantReunionRegistrations');
 const saveRegistrations = items => setStored('morantReunionRegistrations', items);
+
+function setupHeroLogoUpload() {
+  const area = document.querySelector('.editable-logo-area');
+  const input = document.querySelector('#heroLogoUpload');
+  const preview = document.querySelector('#heroLogoPreview');
+  const remove = document.querySelector('#removeHeroLogo');
+  if (!area || !input || !preview) return;
+
+  const savedLogo = localStorage.getItem('morantHeroLogo');
+  if (savedLogo) {
+    preview.src = savedLogo;
+    area.classList.add('logo-ready');
+  }
+
+  input.addEventListener('change', () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      preview.src = dataUrl;
+      localStorage.setItem('morantHeroLogo', dataUrl);
+      area.classList.add('logo-ready');
+    };
+    reader.readAsDataURL(file);
+  });
+
+  remove?.addEventListener('click', () => {
+    localStorage.removeItem('morantHeroLogo');
+    preview.removeAttribute('src');
+    area.classList.remove('logo-ready');
+    input.value = '';
+  });
+}
 
 function allPeople() {
   const people = [];
@@ -186,6 +202,7 @@ function downloadRegistrationsCsv() {
   downloadCsv('morant-reunion-registrations.csv', rows);
 }
 
+setupHeroLogoUpload();
 renderBranchCards();
 renderSelects();
 renderHeritage();
