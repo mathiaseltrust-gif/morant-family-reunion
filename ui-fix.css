@@ -8,12 +8,51 @@
   overflow: visible !important;
 }
 
+.editable-logo-area {
+  width: min(690px, 95vw);
+  min-height: 520px !important;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 18px;
+  background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.25) 45%, rgba(0,0,0,.55));
+  padding: 22px;
+  position: relative;
+}
+
 .official-reunion-logo {
   display: block;
-  width: min(690px, 95vw);
+  width: min(650px, 92vw);
+  max-height: 500px;
+  object-fit: contain;
   height: auto;
   filter: drop-shadow(0 24px 34px rgba(0,0,0,.75));
 }
+
+.hidden-logo { display: none; }
+
+.logo-upload-card {
+  width: 100%;
+  min-height: 390px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  color: #f7f2ea;
+  border: 2px dashed rgba(255,255,255,.45);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: center;
+  padding: 30px;
+}
+
+.logo-upload-card:hover { border-color: #c92026; }
+.logo-upload-card .upload-icon { font-size: 58px; color: #c92026; line-height: 1; }
+.logo-upload-card strong { font-size: clamp(24px, 4vw, 40px); text-transform: uppercase; }
+.logo-upload-card small { max-width: 420px; color: rgba(255,255,255,.72); font: 15px Arial, sans-serif; line-height: 1.45; }
+.logo-file-input { display: none; }
+.logo-tools { margin-top: 12px; display: flex; justify-content: center; }
+.logo-tools button { background: #111; color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 10px 16px; text-transform: uppercase; font-weight: 700; }
+.logo-ready .logo-upload-card { display: none; }
+.logo-ready .hidden-logo { display: block; }
 
 @media (max-width: 760px) {
   .topbar {
@@ -38,8 +77,19 @@
     order: 2;
   }
 
+  .editable-logo-area {
+    width: 100%;
+    min-height: 360px !important;
+    padding: 14px;
+  }
+
+  .logo-upload-card {
+    min-height: 280px;
+  }
+
   .official-reunion-logo {
     width: min(430px, 98vw);
+    max-height: 340px;
     margin: -10px auto 0;
   }
 
@@ -67,8 +117,8 @@
   }
 
   .official-reunion-logo {
-    width: 108vw;
-    margin-left: -4vw;
+    width: 100%;
+    max-height: 330px;
   }
 
   .quick-actions {
