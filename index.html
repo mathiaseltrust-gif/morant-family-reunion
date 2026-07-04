@@ -13,61 +13,145 @@
       <div class="tree-mark">✦</div>
       <div>
         <h1>The Morant Family Bloodline Registry</h1>
-        <p>Family Reunion • Living Registry • Legacy Archive</p>
+        <p>San Antonio, Texas • 2026 Family Reunion</p>
       </div>
     </a>
     <nav aria-label="Primary navigation">
+      <a href="#reunion-center">Reunion Center</a>
+      <a href="#updates">Updates</a>
+      <a href="#registration">Register</a>
       <a href="#bloodline">Bloodline</a>
       <a href="#branches">Branches</a>
-      <a href="#heritage">Heritage</a>
-      <a href="#reunion">Reunion</a>
-      <a href="#calendar">Calendar</a>
-      <a href="#add-family">Add Family</a>
       <a href="#directory">Directory</a>
     </nav>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <p class="eyebrow">San Antonio, Texas • 2026</p>
-      <h2>The Morant Family Bloodline</h2>
+    <section class="hero reunion-hero">
+      <div class="reunion-logo-card">
+        <p class="eyebrow">Morant Family Reunion</p>
+        <div class="texas-mark">TX</div>
+        <h2>The Morant Family Bloodline</h2>
+        <p>San Antonio, Texas • 2026</p>
+      </div>
       <p class="hero-text">
-        A living family registry honoring Bobbie Ruff and Cornella Morant Ruff. This portal is built so the family can gather, add descendants, share updates, preserve photos and stories, and prepare for the reunion together.
+        Reunion headquarters for announcements, registration, text/email updates, calendar details, and the living family registry.
       </p>
       <div class="actions">
-        <a class="button primary" href="#add-family">Add My Family</a>
-        <a class="button" href="#branches">View Branches</a>
-        <a class="button" href="#reunion">Reunion Info</a>
+        <a class="button primary" href="#updates">Get Text / Email Updates</a>
+        <a class="button" href="#registration">Register for Reunion</a>
+        <a class="button" href="#reunion-center">Open Reunion Center</a>
+      </div>
+    </section>
+
+    <section id="reunion-center" class="panel priority-panel">
+      <div class="section-heading">
+        <p class="eyebrow">Start Here</p>
+        <h2>Reunion Center</h2>
+        <p>Everything needed now for the upcoming family reunion.</p>
+      </div>
+      <div class="calendar-grid">
+        <article>
+          <h3>1. Get Updates</h3>
+          <p>Join the text/email list for announcements, deadlines, schedule changes, and reminders.</p>
+          <a class="button primary" href="#updates">Join Updates</a>
+        </article>
+        <article>
+          <h3>2. Register</h3>
+          <p>Submit your household, branch, attendee count, shirts, hotel needs, and volunteer interest.</p>
+          <a class="button" href="#registration">Register Now</a>
+        </article>
+        <article>
+          <h3>3. Add Family</h3>
+          <p>Submit children, grandchildren, photos, spellings, and branch corrections for approval.</p>
+          <a class="button" href="#add-family">Add Family Info</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="updates" class="panel split urgent-panel">
+      <div>
+        <p class="eyebrow">Notifications</p>
+        <h2>Get Reunion Updates</h2>
+        <p>Sign up for family announcements. Updates can include schedule changes, shirt deadlines, hotel details, registration reminders, and reunion day alerts.</p>
+        <form id="notificationForm" class="mini-form">
+          <div class="form-grid">
+            <label>Name<input name="name" required placeholder="Your full name" /></label>
+            <label>Branch<select name="branch" id="notifyBranch"></select></label>
+            <label>Email<input name="email" type="email" placeholder="name@example.com" /></label>
+            <label>Phone<input name="phone" type="tel" placeholder="(555) 555-5555" /></label>
+          </div>
+          <div class="checkbox-row">
+            <label><input type="checkbox" name="emailOptIn" checked /> Email updates</label>
+            <label><input type="checkbox" name="textOptIn" /> Text updates</label>
+          </div>
+          <button type="submit">Join Notification List</button>
+        </form>
+      </div>
+      <div class="card notice-card">
+        <h3>Admin Broadcast Plan</h3>
+        <p>For now this saves signups as exportable drafts. Next connection: Brevo/Mailchimp for email and Twilio for text blasts.</p>
+        <button id="downloadNotifications" type="button">Download Signups CSV</button>
+      </div>
+    </section>
+
+    <section id="registration" class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">RSVP</p>
+        <h2>Reunion Registration</h2>
+        <p>Collect the information needed for planning. This is a working registration draft until connected to the live database.</p>
+      </div>
+      <form id="registrationForm">
+        <div class="form-grid">
+          <label>Name<input name="name" required placeholder="Your full name" /></label>
+          <label>Branch<select name="branch" id="registrationBranch"></select></label>
+          <label>Email<input name="email" type="email" /></label>
+          <label>Phone<input name="phone" type="tel" /></label>
+          <label>Adults Attending<input name="adults" type="number" min="0" value="1" /></label>
+          <label>Children Attending<input name="children" type="number" min="0" value="0" /></label>
+          <label>Shirt Sizes<input name="shirts" placeholder="Example: 1 XL, 2 Medium, 1 Youth L" /></label>
+          <label>Hotel Needed<select name="hotel"><option>No</option><option>Yes</option><option>Maybe</option></select></label>
+        </div>
+        <label>Notes / Dietary Needs / Volunteer Interest<textarea name="notes" rows="4"></textarea></label>
+        <div class="actions form-actions">
+          <button type="submit">Save Registration Draft</button>
+          <button id="downloadRegistrations" type="button">Download Registrations CSV</button>
+        </div>
+      </form>
+      <div id="registrationList" class="submission-list"></div>
+    </section>
+
+    <section id="calendar" class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Schedule</p>
+        <h2>Family Calendar</h2>
+      </div>
+      <div class="calendar-grid">
+        <article><h3>Planning Meeting</h3><p>Date to be announced</p></article>
+        <article><h3>Registration Deadline</h3><p>Date to be announced</p></article>
+        <article><h3>Family Reunion Weekend</h3><p>San Antonio, TX • 2026</p></article>
       </div>
     </section>
 
     <section id="bloodline" class="panel">
       <div class="section-heading">
-        <p class="eyebrow">Generation 1</p>
-        <h2>Founding Elders</h2>
+        <p class="eyebrow">Family Structure</p>
+        <h2>Founding Household</h2>
       </div>
       <div class="root-couple">
-        <article>
-          <span>Founding Elder</span>
-          <h3>Bobbie Ruff</h3>
-          <p>1925–1991</p>
-        </article>
+        <article><span>Family Elder</span><h3>Bobbie Ruff</h3><p>1925–1991</p></article>
         <div class="ampersand">&</div>
-        <article>
-          <span>Founding Elder</span>
-          <h3>Cornella Morant Ruff</h3>
-          <p>1940–2013</p>
-        </article>
+        <article><span>Family Elder</span><h3>Cornella Morant Ruff</h3><p>1940–2013</p></article>
       </div>
       <div class="callout">
-        <strong>Family convention:</strong> this registry follows the bloodline. Bobbie and Cornella are the root couple. Their children are the branch elders. Their children, grandchildren, and future generations are added under the proper branch.
+        <strong>Registry note:</strong> this public reunion registry follows the family as recognized and preserved by the family. Branch updates are submitted for review before becoming public.
       </div>
     </section>
 
     <section id="branches" class="panel">
       <div class="section-heading">
-        <p class="eyebrow">Generation 2</p>
-        <h2>Their Children — Branch Elders</h2>
+        <p class="eyebrow">Family Branches</p>
+        <h2>Branch Elders</h2>
       </div>
       <div id="branchGrid" class="branch-grid"></div>
     </section>
@@ -78,77 +162,18 @@
         <h2>Branch Detail</h2>
       </div>
       <div class="toolbar">
-        <label>
-          Choose a branch
-          <select id="branchSelect"></select>
-        </label>
+        <label>Choose a branch<select id="branchSelect"></select></label>
         <button id="printBranch" type="button">Print Branch</button>
-        <button id="downloadCsv" type="button">Download CSV</button>
+        <button id="downloadCsv" type="button">Download Registry CSV</button>
       </div>
       <div id="branchDetail" class="branch-detail"></div>
     </section>
 
-    <section id="heritage" class="panel split">
-      <div id="heritageContent"></div>
-      <div>
-        <h3>Maternal Line Research</h3>
-        <div id="ancestryList" class="ancestry-list"></div>
-      </div>
-    </section>
-
-    <section id="reunion" class="panel split">
-      <div>
-        <p class="eyebrow">Reunion 2026</p>
-        <h2>Morant Family Reunion</h2>
-        <p>
-          This site is the family headquarters for reunion registration, event updates, shirt planning, family photos, travel notes, and branch updates.
-        </p>
-        <ul class="check-list">
-          <li><strong>Location:</strong> San Antonio, Texas</li>
-          <li><strong>Year:</strong> 2026</li>
-          <li><strong>Theme:</strong> One Family. One Bloodline. Endless Legacy.</li>
-        </ul>
-      </div>
-      <div class="card notice-card">
-        <h3>Next Actions</h3>
-        <p>Share the link with family. Ask each branch to add children, grandchildren, photos, and contact details.</p>
-        <a class="button primary" href="#add-family">Submit Family Info</a>
-      </div>
-    </section>
-
-    <section id="calendar" class="panel">
-      <div class="section-heading">
-        <p class="eyebrow">Updates</p>
-        <h2>Family Calendar & Notifications</h2>
-      </div>
-      <div class="calendar-grid">
-        <article>
-          <h3>Planning Meeting</h3>
-          <p>Date to be announced</p>
-        </article>
-        <article>
-          <h3>Registration Deadline</h3>
-          <p>Date to be announced</p>
-        </article>
-        <article>
-          <h3>Reunion Weekend</h3>
-          <p>San Antonio, TX • 2026</p>
-        </article>
-      </div>
-      <div class="notification-box">
-        <h3>Interactive Calendar Coming Next</h3>
-        <p>The clean front page is live now. The next version should connect events to a shared calendar so family can view dates, RSVP, and receive updates.</p>
-      </div>
-    </section>
-
     <section id="add-family" class="panel">
       <div class="section-heading">
-        <p class="eyebrow">Submit Updates</p>
-        <h2>Add My Family</h2>
+        <p class="eyebrow">Family Updates</p>
+        <h2>Add Family / Correct Spelling</h2>
       </div>
-      <p>
-        Use this form to submit children, grandchildren, great-grandchildren, contact info, and notes. The information is saved on this device as a draft and can be copied or downloaded. Later, this can connect to a real approval database.
-      </p>
       <form id="familyForm">
         <div class="form-grid">
           <label>Your Name<input name="submitter" required placeholder="Your full name" /></label>
@@ -156,35 +181,22 @@
           <label>Branch<select name="branch" id="formBranch"></select></label>
           <label>Relationship / Parent Line<input name="relationship" placeholder="Example: child of Pamela Ruff" /></label>
         </div>
-        <label>Family Members to Add<textarea name="familyMembers" rows="7" placeholder="List each person, parent, children, grandchildren, birth years, and notes if known."></textarea></label>
-        <label>Photos or Documents Notes<textarea name="mediaNotes" rows="3" placeholder="Describe photos/documents you want added later."></textarea></label>
+        <label>Family Members / Corrections<textarea name="familyMembers" rows="7" placeholder="List names, parent, children, grandchildren, correct spelling, birth/death years, and notes."></textarea></label>
+        <label>Photo or Document Notes<textarea name="mediaNotes" rows="3" placeholder="Describe photos/documents you want added later."></textarea></label>
         <div class="actions form-actions">
-          <button type="submit">Save Submission Draft</button>
-          <button id="copySubmission" type="button">Copy Latest Submission</button>
+          <button type="submit">Save Family Update Draft</button>
+          <button id="copySubmission" type="button">Copy Latest Family Update</button>
           <button id="clearSubmissions" type="button">Clear Drafts</button>
         </div>
       </form>
       <div id="submissionList" class="submission-list"></div>
     </section>
 
-    <section class="panel">
-      <div class="section-heading">
-        <p class="eyebrow">Build Roadmap</p>
-        <h2>Live Editing & Access</h2>
-      </div>
-      <div class="calendar-grid">
-        <article>
-          <h3>Phase 1 — Clean Public Site</h3>
-          <p>Current version: public registry, branch view, directory search, CSV download, and submission draft form.</p>
-        </article>
-        <article>
-          <h3>Phase 2 — Shared Submissions</h3>
-          <p>Connect the form to email, Google Forms, or Supabase so updates are received by the family historian.</p>
-        </article>
-        <article>
-          <h3>Phase 3 — Secure Live Editing</h3>
-          <p>Add login access, roles, approval queue, live database saving, photos, calendar RSVP, and admin controls.</p>
-        </article>
+    <section id="heritage" class="panel split">
+      <div id="heritageContent"></div>
+      <div>
+        <h3>Maternal Line Research</h3>
+        <div id="ancestryList" class="ancestry-list"></div>
       </div>
     </section>
 
