@@ -2,11 +2,16 @@ const data = window.MORANT_FAMILY_DATA;
 const branchGrid = document.querySelector('#branchGrid');
 const branchSelect = document.querySelector('#branchSelect');
 const formBranch = document.querySelector('#formBranch');
+const notifyBranch = document.querySelector('#notifyBranch');
+const registrationBranch = document.querySelector('#registrationBranch');
 const branchDetail = document.querySelector('#branchDetail');
 const searchBox = document.querySelector('#searchBox');
 const directoryResults = document.querySelector('#directoryResults');
 const familyForm = document.querySelector('#familyForm');
+const notificationForm = document.querySelector('#notificationForm');
+const registrationForm = document.querySelector('#registrationForm');
 const submissionList = document.querySelector('#submissionList');
+const registrationList = document.querySelector('#registrationList');
 
 const asPerson = item => typeof item === 'string' ? { name: item, years: '' } : item;
 const label = person => {
@@ -15,13 +20,20 @@ const label = person => {
 };
 const plain = person => asPerson(person).name;
 
-function getSubmissions() {
-  return JSON.parse(localStorage.getItem('morantFamilySubmissions') || '[]');
+function getStored(key) {
+  return JSON.parse(localStorage.getItem(key) || '[]');
 }
 
-function saveSubmissions(items) {
-  localStorage.setItem('morantFamilySubmissions', JSON.stringify(items, null, 2));
+function setStored(key, items) {
+  localStorage.setItem(key, JSON.stringify(items, null, 2));
 }
+
+const getSubmissions = () => getStored('morantFamilySubmissions');
+const saveSubmissions = items => setStored('morantFamilySubmissions', items);
+const getNotifications = () => getStored('morantNotificationSignups');
+const saveNotifications = items => setStored('morantNotificationSignups', items);
+const getRegistrations = () => getStored('morantReunionRegistrations');
+const saveRegistrations = items => setStored('morantReunionRegistrations', items);
 
 function allPeople() {
   const people = [];
@@ -64,8 +76,7 @@ function renderBranchCards() {
 
 function renderSelects() {
   const options = data.branches.map(branch => `<option value="${branch.id}">${branch.name}</option>`).join('');
-  branchSelect.innerHTML = options;
-  formBranch.innerHTML = options;
+  [branchSelect, formBranch, notifyBranch, registrationBranch].filter(Boolean).forEach(select => select.innerHTML = options);
 }
 
 function renderHeritage() {
@@ -143,17 +154,45 @@ function renderSubmissions() {
   `).join('') || '<p class="note">No saved draft submissions yet.</p>';
 }
 
-function downloadCsv() {
-  const rows = [['Name', 'Years', 'Branch', 'Generation']];
-  allPeople().forEach(person => rows.push([person.name, person.years || '', person.branch, person.generation]));
-  const csv = rows.map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(',')).join('\n');
+function renderRegistrations() {
+  if (!registrationList) return;
+  const items = getRegistrations();
+  registrationList.innerHTML = items.map(item => `
+    <div class="submission-item">
+      <strong>${item.name || 'Unnamed registration'} — ${item.branchName}</strong>
+      <p>${item.adults || 0} adults • ${item.children || 0} children • Hotel: ${item.hotel || 'No'}</p>
+      <small>${new Date(item.createdAt).toLocaleString()}</small>
+    </div>
+  `).join('') || '<p class="note">No saved registration drafts yet.</p>';
+}
+
+function downloadCsv(filename, rows) {
+  const csv = rows.map(row => row.map(cell => `"${String(cell ?? '').replaceAll('"', '""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'morant-family-bloodline-registry.csv';
+  a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function downloadRegistryCsv() {
+  const rows = [['Name', 'Years', 'Branch', 'Generation']];
+  allPeople().forEach(person => rows.push([person.name, person.years || '', person.branch, person.generation]));
+  downloadCsv('morant-family-bloodline-registry.csv', rows);
+}
+
+function downloadNotificationsCsv() {
+  const rows = [['Name', 'Branch', 'Email', 'Phone', 'Email Updates', 'Text Updates', 'Created']];
+  getNotifications().forEach(item => rows.push([item.name, item.branchName, item.email, item.phone, item.emailOptIn ? 'Yes' : 'No', item.textOptIn ? 'Yes' : 'No', item.createdAt]));
+  downloadCsv('morant-reunion-notification-signups.csv', rows);
+}
+
+function downloadRegistrationsCsv() {
+  const rows = [['Name', 'Branch', 'Email', 'Phone', 'Adults', 'Children', 'Shirts', 'Hotel', 'Notes', 'Created']];
+  getRegistrations().forEach(item => rows.push([item.name, item.branchName, item.email, item.phone, item.adults, item.children, item.shirts, item.hotel, item.notes, item.createdAt]));
+  downloadCsv('morant-reunion-registrations.csv', rows);
 }
 
 renderBranchCards();
@@ -162,11 +201,47 @@ renderHeritage();
 renderBranchDetail();
 renderDirectory();
 renderSubmissions();
+renderRegistrations();
 
 branchSelect.addEventListener('change', event => renderBranchDetail(event.target.value));
 searchBox.addEventListener('input', event => renderDirectory(event.target.value));
-document.querySelector('#downloadCsv').addEventListener('click', downloadCsv);
+document.querySelector('#downloadCsv').addEventListener('click', downloadRegistryCsv);
 document.querySelector('#printBranch').addEventListener('click', () => window.print());
+document.querySelector('#downloadNotifications')?.addEventListener('click', downloadNotificationsCsv);
+document.querySelector('#downloadRegistrations')?.addEventListener('click', downloadRegistrationsCsv);
+
+notificationForm?.addEventListener('submit', event => {
+  event.preventDefault();
+  const form = new FormData(notificationForm);
+  const branch = data.branches.find(item => item.id === form.get('branch'));
+  const item = Object.fromEntries(form.entries());
+  item.branchName = branch?.name || item.branch;
+  item.emailOptIn = form.has('emailOptIn');
+  item.textOptIn = form.has('textOptIn');
+  item.createdAt = new Date().toISOString();
+  const items = getNotifications();
+  items.unshift(item);
+  saveNotifications(items);
+  notificationForm.reset();
+  notifyBranch.value = data.branches[0].id;
+  alert('You are saved to the reunion update list on this device. Next step: connect this to email/text broadcast.');
+});
+
+registrationForm?.addEventListener('submit', event => {
+  event.preventDefault();
+  const form = new FormData(registrationForm);
+  const branch = data.branches.find(item => item.id === form.get('branch'));
+  const item = Object.fromEntries(form.entries());
+  item.branchName = branch?.name || item.branch;
+  item.createdAt = new Date().toISOString();
+  const items = getRegistrations();
+  items.unshift(item);
+  saveRegistrations(items);
+  renderRegistrations();
+  registrationForm.reset();
+  registrationBranch.value = data.branches[0].id;
+  alert('Registration saved as a draft on this device. Next step: connect this to the live database.');
+});
 
 familyForm.addEventListener('submit', event => {
   event.preventDefault();
