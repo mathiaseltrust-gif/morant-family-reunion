@@ -4,111 +4,175 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Morant Family Bloodline Registry</title>
-  <meta name="description" content="The official Morant Family Bloodline Registry and Reunion 2026 family portal." />
+  <meta name="description" content="The Morant Family Bloodline Registry and Morant Family Reunion 2026 portal." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <div class="brand">
-      <div class="tree-mark">𐂷</div>
+    <a class="brand" href="#top" aria-label="Morant Family Bloodline home">
+      <div class="tree-mark">✦</div>
       <div>
         <h1>The Morant Family Bloodline Registry</h1>
-        <p>Honoring Our Ancestors • Preserving Our Legacy • Building Our Future</p>
+        <p>Family Reunion • Living Registry • Legacy Archive</p>
       </div>
-    </div>
-    <nav>
+    </a>
+    <nav aria-label="Primary navigation">
       <a href="#bloodline">Bloodline</a>
-      <a href="#reunion">Reunion 2026</a>
+      <a href="#branches">Branches</a>
+      <a href="#reunion">Reunion</a>
       <a href="#calendar">Calendar</a>
       <a href="#add-family">Add Family</a>
-      <a href="#contact">Contact</a>
+      <a href="#directory">Directory</a>
     </nav>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
       <p class="eyebrow">San Antonio, Texas • 2026</p>
       <h2>The Morant Family Bloodline</h2>
       <p class="hero-text">
-        A living family registry rooted in Bobbie Ruff and Cornella Morant Ruff,
-        created so our family can gather, remember, add descendants, share stories,
-        and prepare for the reunion together.
+        A living family registry honoring Bobbie Ruff and Cornella Morant Ruff. This portal is built so the family can gather, add descendants, share updates, preserve photos and stories, and prepare for the reunion together.
       </p>
       <div class="actions">
         <a class="button primary" href="#add-family">Add My Family</a>
-        <a class="button" href="#reunion">View Reunion Info</a>
+        <a class="button" href="#branches">View Branches</a>
+        <a class="button" href="#reunion">Reunion Info</a>
       </div>
     </section>
 
     <section id="bloodline" class="panel">
-      <h2>Founding Elders</h2>
-      <div class="elders">
-        <article><h3>Bobbie Ruff</h3><p>Root elder of this family branch.</p></article>
-        <article><h3>Cornella Morant Ruff</h3><p>Root elder of this family branch.</p></article>
+      <div class="section-heading">
+        <p class="eyebrow">Generation 1</p>
+        <h2>Founding Elders</h2>
       </div>
-      <h2>Family Branches</h2>
-      <div class="branch-grid">
-        <article><h3>Terrance Ruff</h3><p>Branch page coming soon.</p></article>
-        <article><h3>Chervana “Chichi” Ruff</h3><p>Rhondell • Jeffrey • Rayshaun</p></article>
-        <article><h3>Pamela Ruff</h3><p>Mathew • Michael • Donald • Arlene</p></article>
-        <article><h3>Stephan Ruff</h3><p>Monique • Lorenzo • Stevie</p></article>
-        <article><h3>Barbara Ruff</h3><p>Derrick Jr. • Edward • Leland • Michael • Breanne • Caesar</p></article>
-        <article><h3>Rhonda Ruff</h3><p>Byron • Gerold • Teresa</p></article>
+      <div class="root-couple">
+        <article>
+          <span>Founding Elder</span>
+          <h3>Bobbie Ruff</h3>
+          <p>Root elder of this family bloodline.</p>
+        </article>
+        <div class="ampersand">&</div>
+        <article>
+          <span>Founding Elder</span>
+          <h3>Cornella Morant Ruff</h3>
+          <p>Root elder of this family bloodline.</p>
+        </article>
       </div>
+      <div class="callout">
+        <strong>Family convention:</strong> this registry follows the bloodline. Bobbie and Cornella are the root couple. Their children are the branch elders. Their children, grandchildren, and future generations are added under the proper branch.
+      </div>
+    </section>
+
+    <section id="branches" class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Generation 2</p>
+        <h2>Their Children — Branch Elders</h2>
+      </div>
+      <div id="branchGrid" class="branch-grid"></div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Living Bloodline</p>
+        <h2>Branch Detail</h2>
+      </div>
+      <div class="toolbar">
+        <label>
+          Choose a branch
+          <select id="branchSelect"></select>
+        </label>
+        <button id="printBranch" type="button">Print Branch</button>
+        <button id="downloadCsv" type="button">Download CSV</button>
+      </div>
+      <div id="branchDetail" class="branch-detail"></div>
     </section>
 
     <section id="reunion" class="panel split">
       <div>
-        <h2>Morant Family Reunion 2026</h2>
+        <p class="eyebrow">Reunion 2026</p>
+        <h2>Morant Family Reunion</h2>
         <p>
-          This portal will hold reunion registration, hotel information, shirt ordering,
-          family events, family photos, and official announcements.
+          This site is the family headquarters for reunion registration, event updates, shirt planning, family photos, travel notes, and branch updates.
         </p>
-        <ul>
-          <li>Location: San Antonio, Texas</li>
-          <li>Year: 2026</li>
-          <li>Theme: One Family. One Bloodline. Endless Legacy.</li>
+        <ul class="check-list">
+          <li><strong>Location:</strong> San Antonio, Texas</li>
+          <li><strong>Year:</strong> 2026</li>
+          <li><strong>Theme:</strong> One Family. One Bloodline. Endless Legacy.</li>
         </ul>
       </div>
-      <div class="card">
+      <div class="card notice-card">
         <h3>Next Actions</h3>
-        <p>Register, add your family branch, upload photos, and subscribe for updates.</p>
+        <p>Share the link with family. Ask each branch to add children, grandchildren, photos, and contact details.</p>
+        <a class="button primary" href="#add-family">Submit Family Info</a>
       </div>
     </section>
 
     <section id="calendar" class="panel">
-      <h2>Family Calendar</h2>
-      <div class="timeline">
-        <div><strong>Planning Meeting</strong><span>Date to be announced</span></div>
-        <div><strong>Registration Deadline</strong><span>Date to be announced</span></div>
-        <div><strong>Family Reunion Weekend</strong><span>San Antonio, TX • 2026</span></div>
+      <div class="section-heading">
+        <p class="eyebrow">Updates</p>
+        <h2>Family Calendar & Notifications</h2>
+      </div>
+      <div class="calendar-grid">
+        <article>
+          <h3>Planning Meeting</h3>
+          <p>Date to be announced</p>
+        </article>
+        <article>
+          <h3>Registration Deadline</h3>
+          <p>Date to be announced</p>
+        </article>
+        <article>
+          <h3>Reunion Weekend</h3>
+          <p>San Antonio, TX • 2026</p>
+        </article>
+      </div>
+      <div class="notification-box">
+        <h3>Notification Sign-Up Placeholder</h3>
+        <p>For now, families can use the Add Family form. Later, this can connect to email or text alerts.</p>
       </div>
     </section>
 
     <section id="add-family" class="panel">
-      <h2>Add My Family</h2>
+      <div class="section-heading">
+        <p class="eyebrow">Submit Updates</p>
+        <h2>Add My Family</h2>
+      </div>
       <p>
-        Use this form to submit your family branch. Submissions should be reviewed
-        before being added to the official registry.
+        Use this form to submit children, grandchildren, great-grandchildren, contact info, and notes. The information is saved on this device as a draft and can be copied or downloaded. Later, this can connect to a real approval database.
       </p>
-      <form action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID" method="POST">
-        <label>Your Name<input name="name" required></label>
-        <label>Your Branch / Parent Line<input name="branch" placeholder="Example: Pamela Ruff branch" required></label>
-        <label>Email<input name="email" type="email"></label>
-        <label>Family Members to Add<textarea name="family_members" rows="6" placeholder="List names, parents, children, grandchildren, birth years if known."></textarea></label>
-        <button type="submit">Submit Family Information</button>
+      <form id="familyForm">
+        <div class="form-grid">
+          <label>Your Name<input name="submitter" required placeholder="Your full name" /></label>
+          <label>Email<input name="email" type="email" placeholder="name@example.com" /></label>
+          <label>Branch<select name="branch" id="formBranch"></select></label>
+          <label>Relationship / Parent Line<input name="relationship" placeholder="Example: child of Pamela Ruff" /></label>
+        </div>
+        <label>Family Members to Add<textarea name="familyMembers" rows="7" placeholder="List each person, parent, children, grandchildren, birth years, and notes if known."></textarea></label>
+        <label>Photos or Documents Notes<textarea name="mediaNotes" rows="3" placeholder="Describe photos/documents you want added later."></textarea></label>
+        <div class="actions form-actions">
+          <button type="submit">Save Submission Draft</button>
+          <button id="copySubmission" type="button">Copy Latest Submission</button>
+          <button id="clearSubmissions" type="button">Clear Drafts</button>
+        </div>
       </form>
-      <p class="note">Before sharing publicly, replace the Formspree link with your real form endpoint.</p>
+      <div id="submissionList" class="submission-list"></div>
     </section>
 
-    <section id="contact" class="panel">
-      <h2>Contact</h2>
-      <p>Email and committee contact details can go here.</p>
+    <section id="directory" class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Family Directory</p>
+        <h2>Search the Current Registry</h2>
+      </div>
+      <input id="searchBox" class="search-box" placeholder="Search by name or branch..." />
+      <div id="directoryResults" class="directory-results"></div>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 Morant Family Bloodline Registry. Built for family reunion and legacy preservation.</p>
+    <p>© 2026 Morant Family Bloodline Registry. Built for reunion, family connection, and legacy preservation.</p>
   </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
