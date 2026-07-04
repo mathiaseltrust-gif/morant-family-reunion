@@ -1,4 +1,25 @@
 window.MORANT_FAMILY_DATA = {
+  reunion: {
+    title: "Morant Family Reunion 2026",
+    location: "San Antonio, Texas",
+    startDate: "2026-07-24",
+    endDate: "2026-07-26",
+    nextMeeting: {
+      date: "2026-04-16",
+      dialIn: "6478022164",
+      accessCode: "Jesus",
+      times: ["PST 6:00 PM", "CST 8:00 PM", "EST 9:00 PM"]
+    },
+    contact: {
+      name: "Auntie Lynette Johnson",
+      phone: "(210) 317-0330",
+      cashApp: "$LynJohnson260",
+      zelle: "210 317-0330"
+    },
+    cost: "$120 per adult. Add T-shirt size to payment.",
+    admins: ["Auntie Lynette Johnson", "Mathew McCaster"],
+    familyHistoryPrompt: "Each family should choose someone to represent their family history: say who they are, name their father and mother, identify the Morant family connection, then tell their family tree."
+  },
   rootCouple: [
     { name: "Bobbie Ruff", years: "1925–1991", role: "Founding Elder" },
     { name: "Cornella Morant Ruff", years: "1940–2013", role: "Founding Elder" }
@@ -132,6 +153,33 @@ window.MORANT_FAMILY_DATA = {
         { parent: "Gerold Jackson", names: [] },
         { parent: "Teresa Jackson", names: [] }
       ]
+    },
+    {
+      id: "lynette",
+      name: "Lynette Johnson Family",
+      years: "",
+      color: "#5d3515",
+      children: [
+        { name: "Reginald", years: "" },
+        { name: "Jibri", years: "" },
+        { name: "Anthony", years: "", note: "Married to Danielle" },
+        { name: "Demetrius", years: "", note: "Married to Angie" },
+        { name: "Keyona", years: "" },
+        { name: "Latesha", years: "", note: "Married to Marlon" },
+        { name: "Jonathan", years: "" },
+        { name: "Katrina", years: "" }
+      ],
+      grandchildren: [
+        { parent: "Reginald", names: [{ name: "Danica", years: "" }, { name: "Tiana", years: "" }] },
+        { parent: "Jibri", names: [{ name: "Jasmine", years: "" }, { name: "Arianna", years: "" }, { name: "Juan", years: "" }, { name: "Josiah", years: "" }, { name: "Joshua", years: "" }, { name: "Jacob", years: "" }] },
+        { parent: "Anthony", names: [{ name: "Kaylin", years: "" }, { name: "Nevaeh", years: "" }, { name: "Deshaun", years: "" }, { name: "Kyrie", years: "" }] },
+        { parent: "Demetrius", names: [{ name: "Kastor", years: "" }, { name: "Tatum", years: "" }] },
+        { parent: "Keyona", names: [{ name: "Jeremiah", years: "" }] },
+        { parent: "Latesha", names: [{ name: "Melanie", years: "" }, { name: "Aubrey", years: "" }], note: "Text says three children jointly with Marlon; two names listed so far." },
+        { parent: "Jonathan", names: [{ name: "Saniya", years: "" }, { name: "Khalil", years: "" }, { name: "Aleah", years: "" }, { name: "Laila", years: "" }] },
+        { parent: "Katrina", names: [{ name: "Harold III", years: "" }] }
+      ],
+      notes: "Family-history example from Auntie Lynette: one person from each family should introduce parents, Morant connection, and family tree."
     }
   ]
 };
