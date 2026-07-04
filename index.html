@@ -4,68 +4,46 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Morant Family Bloodline Registry</title>
-  <meta name="description" content="The Morant Family Bloodline Registry and Morant Family Reunion 2026 portal." />
+  <meta name="description" content="Morant Family Reunion 2026 and Living Family Registry." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="Morant Family Bloodline home">
-      <div class="tree-mark">✦</div>
+    <a class="brand" href="#top" aria-label="Morant Family Reunion home">
+      <div class="tree-mark">TX</div>
       <div>
-        <h1>The Morant Family Bloodline Registry</h1>
-        <p>San Antonio, Texas • 2026 Family Reunion</p>
+        <h1>Morant Family Reunion</h1>
+        <p>San Antonio, Texas • 2026</p>
       </div>
     </a>
     <nav aria-label="Primary navigation">
-      <a href="#reunion-center">Reunion Center</a>
       <a href="#updates">Updates</a>
       <a href="#registration">Register</a>
-      <a href="#bloodline">Bloodline</a>
-      <a href="#branches">Branches</a>
-      <a href="#directory">Directory</a>
+      <a href="#calendar">Calendar</a>
+      <a href="#explore">Explore Tree</a>
+      <a href="#search">Search</a>
+      <a href="#add-family">Add Family</a>
     </nav>
   </header>
 
   <main id="top">
-    <section class="hero reunion-hero">
-      <div class="reunion-logo-card">
-        <p class="eyebrow">Morant Family Reunion</p>
+    <section class="hero reunion-hero approved-hero">
+      <div class="hero-copy">
+        <p class="eyebrow">The Morant Family Bloodline</p>
+        <h2>Family Reunion 2026</h2>
+        <p class="hero-text">A clean family reunion hub for updates, registration, calendar details, and the living registry.</p>
+        <div class="actions">
+          <a class="button primary" href="#updates">Get Text / Email Updates</a>
+          <a class="button" href="#registration">Register</a>
+          <a class="button" href="#explore">Explore the Tree</a>
+        </div>
+      </div>
+      <div class="reunion-logo-card logo-placeholder">
+        <p class="eyebrow">Interchangeable Reunion Logo</p>
         <div class="texas-mark">TX</div>
-        <h2>The Morant Family Bloodline</h2>
-        <p>San Antonio, Texas • 2026</p>
-      </div>
-      <p class="hero-text">
-        Reunion headquarters for announcements, registration, text/email updates, calendar details, and the living family registry.
-      </p>
-      <div class="actions">
-        <a class="button primary" href="#updates">Get Text / Email Updates</a>
-        <a class="button" href="#registration">Register for Reunion</a>
-        <a class="button" href="#reunion-center">Open Reunion Center</a>
-      </div>
-    </section>
-
-    <section id="reunion-center" class="panel priority-panel">
-      <div class="section-heading">
-        <p class="eyebrow">Start Here</p>
-        <h2>Reunion Center</h2>
-        <p>Everything needed now for the upcoming family reunion.</p>
-      </div>
-      <div class="calendar-grid">
-        <article>
-          <h3>1. Get Updates</h3>
-          <p>Join the text/email list for announcements, deadlines, schedule changes, and reminders.</p>
-          <a class="button primary" href="#updates">Join Updates</a>
-        </article>
-        <article>
-          <h3>2. Register</h3>
-          <p>Submit your household, branch, attendee count, shirts, hotel needs, and volunteer interest.</p>
-          <a class="button" href="#registration">Register Now</a>
-        </article>
-        <article>
-          <h3>3. Add Family</h3>
-          <p>Submit children, grandchildren, photos, spellings, and branch corrections for approval.</p>
-          <a class="button" href="#add-family">Add Family Info</a>
-        </article>
+        <h3>The Morant Family Bloodline</h3>
+        <p>San Antonio • 2026</p>
+        <small>Replace this with the approved Texas tree logo.</small>
       </div>
     </section>
 
@@ -73,7 +51,7 @@
       <div>
         <p class="eyebrow">Notifications</p>
         <h2>Get Reunion Updates</h2>
-        <p>Sign up for family announcements. Updates can include schedule changes, shirt deadlines, hotel details, registration reminders, and reunion day alerts.</p>
+        <p>Sign up for family announcements, schedule changes, shirt deadlines, hotel details, and reunion day alerts.</p>
         <form id="notificationForm" class="mini-form">
           <div class="form-grid">
             <label>Name<input name="name" required placeholder="Your full name" /></label>
@@ -89,8 +67,8 @@
         </form>
       </div>
       <div class="card notice-card">
-        <h3>Admin Broadcast Plan</h3>
-        <p>For now this saves signups as exportable drafts. Next connection: Brevo/Mailchimp for email and Twilio for text blasts.</p>
+        <h3>Admin Need Now</h3>
+        <p>Download signups now. Next step is connecting this to live email/text blasts.</p>
         <button id="downloadNotifications" type="button">Download Signups CSV</button>
       </div>
     </section>
@@ -99,7 +77,6 @@
       <div class="section-heading">
         <p class="eyebrow">RSVP</p>
         <h2>Reunion Registration</h2>
-        <p>Collect the information needed for planning. This is a working registration draft until connected to the live database.</p>
       </div>
       <form id="registrationForm">
         <div class="form-grid">
@@ -109,7 +86,7 @@
           <label>Phone<input name="phone" type="tel" /></label>
           <label>Adults Attending<input name="adults" type="number" min="0" value="1" /></label>
           <label>Children Attending<input name="children" type="number" min="0" value="0" /></label>
-          <label>Shirt Sizes<input name="shirts" placeholder="Example: 1 XL, 2 Medium, 1 Youth L" /></label>
+          <label>Shirt Sizes<input name="shirts" placeholder="Example: 1 XL, 2 Medium" /></label>
           <label>Hotel Needed<select name="hotel"><option>No</option><option>Yes</option><option>Maybe</option></select></label>
         </div>
         <label>Notes / Dietary Needs / Volunteer Interest<textarea name="notes" rows="4"></textarea></label>
@@ -133,40 +110,34 @@
       </div>
     </section>
 
-    <section id="bloodline" class="panel">
+    <section id="explore" class="panel museum-panel">
       <div class="section-heading">
-        <p class="eyebrow">Family Structure</p>
-        <h2>Founding Household</h2>
+        <p class="eyebrow">Explore the Tree</p>
+        <h2>Parent Groups Only</h2>
+        <p>This view shows the parent groups first. Deeper names stay hidden until someone opens a branch or searches for a person.</p>
       </div>
-      <div class="root-couple">
-        <article><span>Family Elder</span><h3>Bobbie Ruff</h3><p>1925–1991</p></article>
-        <div class="ampersand">&</div>
-        <article><span>Family Elder</span><h3>Cornella Morant Ruff</h3><p>1940–2013</p></article>
+      <div class="family-map">
+        <article class="family-node muted-node"><span>Bobbie Ruff's Siblings</span><strong>Phyllis • Tony • Rayfield</strong></article>
+        <article class="family-node root-node"><span>Main Reunion Household</span><strong>Bobbie Ruff & Cornella Morant Ruff</strong></article>
+        <article class="family-node muted-node"><span>Bobbie's Children Before Cornella</span><strong>Penny Ruff • Bobbie Ruff Jr.</strong></article>
       </div>
-      <div class="callout">
-        <strong>Registry note:</strong> this public reunion registry follows the family as recognized and preserved by the family. Branch updates are submitted for review before becoming public.
-      </div>
-    </section>
-
-    <section id="branches" class="panel">
-      <div class="section-heading">
-        <p class="eyebrow">Family Branches</p>
-        <h2>Branch Elders</h2>
-      </div>
-      <div id="branchGrid" class="branch-grid"></div>
-    </section>
-
-    <section class="panel">
-      <div class="section-heading">
-        <p class="eyebrow">Living Bloodline</p>
-        <h2>Branch Detail</h2>
-      </div>
-      <div class="toolbar">
-        <label>Choose a branch<select id="branchSelect"></select></label>
-        <button id="printBranch" type="button">Print Branch</button>
+      <div id="branchGrid" class="branch-grid parent-only-grid"></div>
+      <div class="toolbar compact-toolbar">
+        <label>Open a parent group<select id="branchSelect"></select></label>
+        <button id="printBranch" type="button">Print Selected Group</button>
         <button id="downloadCsv" type="button">Download Registry CSV</button>
       </div>
       <div id="branchDetail" class="branch-detail"></div>
+    </section>
+
+    <section id="search" class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Private Until Searched</p>
+        <h2>Search the Registry</h2>
+        <p>Names beyond the parent groups do not appear here until searched.</p>
+      </div>
+      <input id="searchBox" class="search-box" placeholder="Search by name or branch..." />
+      <div id="directoryResults" class="directory-results"></div>
     </section>
 
     <section id="add-family" class="panel">
@@ -192,21 +163,12 @@
       <div id="submissionList" class="submission-list"></div>
     </section>
 
-    <section id="heritage" class="panel split">
+    <section id="heritage" class="panel split quiet-section">
       <div id="heritageContent"></div>
       <div>
         <h3>Maternal Line Research</h3>
         <div id="ancestryList" class="ancestry-list"></div>
       </div>
-    </section>
-
-    <section id="directory" class="panel">
-      <div class="section-heading">
-        <p class="eyebrow">Family Directory</p>
-        <h2>Search the Current Registry</h2>
-      </div>
-      <input id="searchBox" class="search-box" placeholder="Search by name or branch..." />
-      <div id="directoryResults" class="directory-results"></div>
     </section>
   </main>
 
