@@ -30,18 +30,10 @@ window.MORANT_FAMILY_DATA = {
     { name: "Rosa Leach Allen", years: "1896–1983" }
   ],
   branches: [
-    {
-      id: "terrance",
-      name: "Terrance Ruff",
-      years: "1957–2014",
-      color: "#15375d",
-      children: [],
-      grandchildren: [],
-      notes: "Children and grandchildren slots are open for branch updates."
-    },
+    { id: "terrance", name: "Terrance Ruff", years: "1957–2014", color: "#15375d", children: [], grandchildren: [], notes: "Children and grandchildren slots are open for branch updates." },
     {
       id: "chervana",
-      name: "Chervana “Chichi” Ruff",
+      name: "Chervana Ruff",
       years: "",
       color: "#184a31",
       children: [
@@ -81,12 +73,14 @@ window.MORANT_FAMILY_DATA = {
       children: [
         { name: "Monique Ruff", years: "" },
         { name: "Lorenzo Ruff", years: "" },
-        { name: "Stevie Ruff", years: "" }
+        { name: "Stevie Ruff", years: "" },
+        { name: "Dwayne Ruff", years: "", note: "Son of Stephan Ruff; brother of Monique, Lorenzo, and Stevie" }
       ],
       grandchildren: [
         { parent: "Monique Ruff", names: [] },
         { parent: "Lorenzo Ruff", names: [] },
-        { parent: "Stevie Ruff", names: [] }
+        { parent: "Stevie Ruff", names: [] },
+        { parent: "Dwayne Ruff", names: [] }
       ]
     },
     {
