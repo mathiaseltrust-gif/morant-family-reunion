@@ -4,81 +4,69 @@
   transform-origin: center;
 }
 
-.arc {
+.reunion-logo-svg {
+  display: block;
+  width: min(650px, 95vw);
+  height: auto;
+  filter: drop-shadow(0 22px 32px rgba(0,0,0,.75));
+}
+
+.reunion-logo-svg .logo-arc {
+  fill: #f7f2ea;
   font-family: Georgia, 'Times New Roman', serif;
-  letter-spacing: .24em;
-  text-align: center;
+  font-size: 76px;
+  font-weight: 800;
+  letter-spacing: 18px;
+  transform: rotate(-8deg);
+  transform-origin: 500px 120px;
 }
 
-.hat {
-  position: relative;
-  width: 360px;
-  height: 135px;
-  margin: -4px auto 0;
-  color: transparent !important;
-  transform: rotate(-6deg);
+.reunion-logo-svg .logo-hat path:not(.hat-cut):not(.hat-band),
+.reunion-logo-svg .texas-line {
+  fill: none;
+  stroke: #f7f2ea;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-.hat::before {
-  content: "";
-  position: absolute;
-  left: 118px;
-  top: 2px;
-  width: 128px;
-  height: 82px;
-  background: #f6f0e8;
-  border-radius: 44% 56% 35% 65% / 58% 55% 45% 42%;
-  transform: rotate(-2deg);
-  box-shadow: inset -16px -10px 0 rgba(0,0,0,.08);
+.reunion-logo-svg .logo-hat path:not(.hat-cut):not(.hat-band) {
+  fill: #f7f2ea;
+  stroke-width: 0;
 }
 
-.hat::after {
-  content: "";
-  position: absolute;
-  left: 14px;
-  top: 62px;
-  width: 330px;
-  height: 56px;
-  background: #f6f0e8;
-  border-radius: 55% 45% 52% 48% / 45% 42% 58% 55%;
-  transform: rotate(-4deg);
-  box-shadow: inset 0 9px 0 #050505, 0 12px 22px rgba(0,0,0,.5);
+.reunion-logo-svg .hat-cut,
+.reunion-logo-svg .hat-band {
+  fill: #050505;
 }
 
-.tx-outline {
-  width: min(560px, 92vw);
-  height: 385px;
-  margin-top: -8px;
+.reunion-logo-svg .texas-line {
+  stroke-width: 28px;
 }
 
-.tx-outline::before,
-.tx-outline::after {
-  clip-path: polygon(
-    7% 36%, 18% 36%, 18% 13%, 33% 13%, 30% 39%,
-    44% 39%, 50% 31%, 63% 35%, 73% 43%, 88% 43%,
-    94% 55%, 91% 67%, 96% 78%, 86% 92%, 71% 92%,
-    62% 99%, 50% 91%, 39% 96%, 31% 86%, 19% 82%,
-    22% 68%, 10% 60%, 15% 48%
-  );
+.reunion-logo-svg .logo-year,
+.reunion-logo-svg .logo-city,
+.reunion-logo-svg .logo-family {
+  fill: #f7f2ea;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
-.tx-outline strong {
-  transform: translateY(28px);
+.reunion-logo-svg .logo-year {
+  font-size: 70px;
+  font-weight: 400;
 }
 
-.tx-outline .city {
-  top: 114px;
-  right: 72px;
+.reunion-logo-svg .logo-city {
+  font-size: 44px;
 }
 
-.tx-outline .year {
-  left: -8px;
-  top: 140px;
+.reunion-logo-svg .logo-family {
+  font-size: 88px;
+  font-weight: 700;
 }
 
-.red-star {
-  right: 86px;
-  top: 206px;
+.reunion-logo-svg .logo-star {
+  fill: #b2171d;
+  font-size: 118px;
 }
 
 @media (max-width: 760px) {
@@ -103,73 +91,18 @@
   .hero-logo {
     order: 2;
     min-height: auto;
-    transform: scale(.96);
+    transform: none;
+    overflow: visible;
+  }
+
+  .reunion-logo-svg {
+    width: min(430px, 98vw);
+    margin: -10px auto 0;
   }
 
   .hero-main-btn {
     max-width: 360px;
     margin: 0 auto;
-  }
-
-  .arc {
-    font-size: clamp(30px, 9vw, 46px);
-    letter-spacing: .2em;
-    margin-bottom: -4px;
-  }
-
-  .hat {
-    width: 280px;
-    height: 104px;
-    margin-top: -4px;
-  }
-
-  .hat::before {
-    left: 92px;
-    top: 0;
-    width: 96px;
-    height: 64px;
-  }
-
-  .hat::after {
-    left: 12px;
-    top: 48px;
-    width: 254px;
-    height: 45px;
-    box-shadow: inset 0 7px 0 #050505, 0 10px 18px rgba(0,0,0,.5);
-  }
-
-  .tx-outline {
-    width: 330px;
-    max-width: 96vw;
-    height: 250px;
-    margin: -8px auto 0;
-  }
-
-  .tx-outline::after {
-    inset: 11px;
-  }
-
-  .tx-outline strong {
-    font-size: clamp(34px, 9vw, 42px);
-    transform: translateY(22px);
-  }
-
-  .tx-outline .city {
-    top: 74px;
-    right: 34px;
-    font-size: 16px;
-  }
-
-  .tx-outline .year {
-    left: -3px;
-    top: 88px;
-    font-size: 28px;
-  }
-
-  .red-star {
-    right: 42px;
-    top: 126px;
-    font-size: 48px;
   }
 
   .quick-actions {
@@ -190,9 +123,9 @@
     font-size: 16px;
   }
 
-  .hero-logo {
-    transform: scale(.9);
-    margin: -16px 0;
+  .reunion-logo-svg {
+    width: 108vw;
+    margin-left: -4vw;
   }
 
   .quick-actions {
