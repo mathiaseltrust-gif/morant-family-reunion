@@ -17,6 +17,9 @@
 
 .branch-panel { display: none; }
 .branch-panel.is-open { display: block; }
+.hidden-admin { display: inline-block !important; margin-top: 12px; background: #111; color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; padding: 10px 16px; text-transform: uppercase; font-weight: 700; }
+.calendar-btn { border: 0; cursor: pointer; margin-top: 10px; }
+.admin-note { color: rgba(255,255,255,.72) !important; font: 13px Arial, sans-serif; text-transform: none !important; line-height: 1.4; }
 
 .profile-photo-upload { width: 108px; height: 108px; border: 1px dashed #888; border-radius: 50%; overflow: hidden; display: grid; place-items: center; cursor: pointer; background: #fff8ed; color: #111; margin: 8px auto 12px; position: relative; }
 .profile-photo-upload input { display: none; }
