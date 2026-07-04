@@ -26,11 +26,99 @@ const getRegistrations = () => getStored('morantReunionRegistrations');
 const saveRegistrations = items => setStored('morantReunionRegistrations', items);
 
 function openBranchPanel() { branchPanel?.classList.add('is-open'); }
-function setupHeroLogoUpload() { const area = document.querySelector('.editable-logo-area'); const input = document.querySelector('#heroLogoUpload'); const preview = document.querySelector('#heroLogoPreview'); const remove = document.querySelector('#removeHeroLogo'); if (!area || !input || !preview) return; const savedLogo = localStorage.getItem('morantHeroLogo'); if (savedLogo) { preview.src = savedLogo; area.classList.add('logo-ready'); } input.addEventListener('change', () => saveImageInput(input, 'morantHeroLogo', dataUrl => { preview.src = dataUrl; area.classList.add('logo-ready'); })); remove?.addEventListener('click', () => { localStorage.removeItem('morantHeroLogo'); preview.removeAttribute('src'); area.classList.remove('logo-ready'); input.value = ''; }); }
-function saveImageInput(input, key, onSaved) { const file = input.files?.[0]; if (!file) return; const reader = new FileReader(); reader.onload = () => { localStorage.setItem(key, reader.result); onSaved(reader.result); }; reader.readAsDataURL(file); }
-function photoUploader(id, labelText = 'Add Photo') { const saved = localStorage.getItem(`morantPhoto:${id}`); return `<label class="profile-photo-upload ${saved ? 'has-photo' : ''}" title="Upload photo"><img src="${saved || ''}" alt="${labelText} profile photo" /><span>▣<br>${labelText}</span><input type="file" accept="image/*" data-photo-id="${id}" /></label><button class="photo-remove" type="button" data-remove-photo="${id}">Remove Photo</button>`; }
-function setupPhotoUploads(scope = document) { scope.querySelectorAll('[data-photo-id]').forEach(input => { input.addEventListener('change', () => { const id = input.dataset.photoId; saveImageInput(input, `morantPhoto:${id}`, dataUrl => { const holder = input.closest('.profile-photo-upload'); const img = holder.querySelector('img'); img.src = dataUrl; holder.classList.add('has-photo'); }); }); }); scope.querySelectorAll('[data-remove-photo]').forEach(button => { button.addEventListener('click', () => { const id = button.dataset.removePhoto; localStorage.removeItem(`morantPhoto:${id}`); const parent = button.closest('.branch-card, .photo-card, .generation-card, .profile-photo-block') || document; const holder = parent.querySelector(`[data-photo-id="${id}"]`)?.closest('.profile-photo-upload'); if (holder) { holder.classList.remove('has-photo'); holder.querySelector('img').removeAttribute('src'); holder.querySelector('input').value = ''; } }); }); }
-function setupRootPhotoUploads() { const cards = document.querySelectorAll('.root-photos .photo-card'); const ids = ['bobbie-ruff', 'cornella-morant-ruff']; cards.forEach((card, index) => { card.insertAdjacentHTML('afterbegin', photoUploader(ids[index] || `root-${index}`, 'Add Photo')); }); setupPhotoUploads(document.querySelector('.root-photos') || document); }
+function countSavedPhotos() { return Object.keys(localStorage).filter(key => key.startsWith('morantPhoto:') || key === 'morantHeroLogo').length; }
+function updateHonestStats() {
+  document.querySelectorAll('.stats-grid div').forEach(card => {
+    const labelText = card.querySelector('small')?.textContent?.trim().toLowerCase() || '';
+    if (labelText.includes('photos')) {
+      card.querySelector('strong').textContent = String(countSavedPhotos());
+      card.querySelector('small').textContent = 'Uploaded Photos';
+    }
+    if (labelText.includes('stories')) {
+      card.querySelector('strong').textContent = '0';
+      card.querySelector('small').textContent = 'Stories Added';
+    }
+    if (labelText.includes('documents')) {
+      card.querySelector('strong').textContent = '0';
+      card.querySelector('small').textContent = 'Documents Added';
+    }
+  });
+}
+
+function setupHeroLogoUpload() {
+  const area = document.querySelector('.editable-logo-area');
+  const input = document.querySelector('#heroLogoUpload');
+  const preview = document.querySelector('#heroLogoPreview');
+  const remove = document.querySelector('#removeHeroLogo');
+  if (!area || !input || !preview) return;
+  const savedLogo = localStorage.getItem('morantHeroLogo');
+  if (savedLogo) { preview.src = savedLogo; area.classList.add('logo-ready'); }
+  input.addEventListener('change', () => saveImageInput(input, 'morantHeroLogo', dataUrl => { preview.src = dataUrl; area.classList.add('logo-ready'); updateHonestStats(); }));
+  remove?.addEventListener('click', () => { localStorage.removeItem('morantHeroLogo'); preview.removeAttribute('src'); area.classList.remove('logo-ready'); input.value = ''; updateHonestStats(); });
+}
+
+function compressImageFile(file, maxSize = 900, quality = 0.72) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+async function saveImageInput(input, key, onSaved) {
+  const file = input.files?.[0];
+  if (!file) return;
+  try {
+    const dataUrl = await compressImageFile(file);
+    localStorage.setItem(key, dataUrl);
+    onSaved(dataUrl);
+    updateHonestStats();
+  } catch (error) {
+    console.error(error);
+    alert('That photo could not be saved on this device. Try a smaller image, or clear old uploaded photos. Backend storage will remove this limit.');
+  }
+}
+function photoUploader(id, labelText = 'Add Photo') {
+  const saved = localStorage.getItem(`morantPhoto:${id}`);
+  return `<label class="profile-photo-upload ${saved ? 'has-photo' : ''}" title="Upload photo"><img src="${saved || ''}" alt="${labelText} profile photo" /><span>▣<br>${labelText}</span><input type="file" accept="image/*" data-photo-id="${id}" /></label><button class="photo-remove" type="button" data-remove-photo="${id}">Remove Photo</button>`;
+}
+function setupPhotoUploads(scope = document) {
+  scope.querySelectorAll('[data-photo-id]').forEach(input => {
+    input.addEventListener('change', () => {
+      const id = input.dataset.photoId;
+      saveImageInput(input, `morantPhoto:${id}`, dataUrl => {
+        const holder = input.closest('.profile-photo-upload');
+        const img = holder.querySelector('img');
+        img.src = dataUrl;
+        holder.classList.add('has-photo');
+      });
+    });
+  });
+  scope.querySelectorAll('[data-remove-photo]').forEach(button => {
+    button.addEventListener('click', () => {
+      const id = button.dataset.removePhoto;
+      localStorage.removeItem(`morantPhoto:${id}`);
+      const parent = button.closest('.branch-card, .photo-card, .generation-card, .profile-photo-block') || document;
+      const holder = parent.querySelector(`[data-photo-id="${id}"]`)?.closest('.profile-photo-upload');
+      if (holder) { holder.classList.remove('has-photo'); holder.querySelector('img').removeAttribute('src'); holder.querySelector('input').value = ''; }
+      updateHonestStats();
+    });
+  });
+}
+function setupRootPhotoUploads() { const cards = document.querySelectorAll('.root-photos .photo-card'); const ids = ['bobbie-ruff', 'cornella-morant-ruff']; cards.forEach((card, index) => { if (!card.querySelector('.profile-photo-upload')) card.insertAdjacentHTML('afterbegin', photoUploader(ids[index] || `root-${index}`, 'Add Photo')); }); setupPhotoUploads(document.querySelector('.root-photos') || document); }
 
 function allPeople() { const people = []; data.rootCouple.forEach(root => people.push({ name: root.name, years: root.years, branch: 'Founding Elders', generation: root.role || 'Founding Elder' })); data.maternalAncestry.forEach(person => people.push({ ...person, branch: 'Maternal Ancestry', generation: 'Documented ancestor / relative' })); data.branches.forEach(branch => { people.push({ name: branch.name, years: branch.years, branch: branch.name, generation: 'Parent Group / Branch Elder' }); branch.children.forEach(child => { const p = asPerson(child); people.push({ name: p.name, years: p.years, branch: branch.name, generation: 'Child / Beneficiary' }); }); branch.grandchildren.forEach(group => group.names.forEach(grandchild => { const p = asPerson(grandchild); people.push({ name: p.name, years: p.years, branch: branch.name, generation: `Grandchild of ${group.parent}` }); })); }); return people; }
 function renderBranchCards() { branchGrid.innerHTML = data.branches.map(branch => `<article class="branch-card" style="--branch-color:${branch.color}"><p class="eyebrow">Parent Group</p><h3>${branch.name}</h3>${photoUploader(`branch-${branch.id}`, 'Add Photo')}${branch.years ? `<p class="years big-years">${branch.years}</p>` : ''}<button type="button" data-branch-button="${branch.id}">Open Parent Group</button></article>`).join(''); setupPhotoUploads(branchGrid); document.querySelectorAll('[data-branch-button]').forEach(button => { button.addEventListener('click', () => { openBranchPanel(); branchSelect.value = button.dataset.branchButton; renderBranchDetail(button.dataset.branchButton); branchPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); }); }
@@ -44,15 +132,17 @@ function downloadCsv(filename, rows) { const csv = rows.map(row => row.map(cell 
 function downloadRegistryCsv() { const rows = [['Name', 'Years', 'Branch', 'Generation']]; allPeople().forEach(person => rows.push([person.name, person.years || '', person.branch, person.generation])); downloadCsv('morant-family-bloodline-registry.csv', rows); }
 function downloadNotificationsCsv() { const rows = [['Name', 'Branch', 'Email', 'Phone', 'Email Updates', 'Text Updates', 'Created']]; getNotifications().forEach(item => rows.push([item.name, item.branchName, item.email, item.phone, item.emailOptIn ? 'Yes' : 'No', item.textOptIn ? 'Yes' : 'No', item.createdAt])); downloadCsv('morant-reunion-notification-signups.csv', rows); }
 function downloadRegistrationsCsv() { const rows = [['Name', 'Branch', 'Email', 'Phone', 'Adults', 'Children', 'Shirts', 'Hotel', 'Notes', 'Created']]; getRegistrations().forEach(item => rows.push([item.name, item.branchName, item.email, item.phone, item.adults, item.children, item.shirts, item.hotel, item.notes, item.createdAt])); downloadCsv('morant-reunion-registrations.csv', rows); }
+function downloadReunionICS() { const ics = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Morant Family Reunion//EN\nBEGIN:VEVENT\nUID:morant-family-reunion-2026@morantfamilyreunion.com\nDTSTAMP:20260704T120000Z\nSUMMARY:Morant Family Reunion 2026\nLOCATION:San Antonio, Texas\nDESCRIPTION:Morant Family Reunion 2026. Final schedule and details to be confirmed by family administrators.\nDTSTART;VALUE=DATE:20260701\nDTEND;VALUE=DATE:20260702\nEND:VEVENT\nEND:VCALENDAR`; const blob = new Blob([ics.replaceAll('\\n','\r\n')], { type: 'text/calendar' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'morant-family-reunion-2026.ics'; a.click(); URL.revokeObjectURL(url); }
+function setupCalendarTools() { const card = document.querySelector('#reunion'); if (!card || card.querySelector('#downloadCalendar')) return; card.insertAdjacentHTML('beforeend', '<button id="downloadCalendar" type="button" class="red-btn calendar-btn">Add to Calendar</button><p class="admin-note">Email/text signups save here and can be exported. Live blasts require backend connection.</p>'); document.querySelector('#downloadCalendar')?.addEventListener('click', downloadReunionICS); }
 
-setupHeroLogoUpload(); renderBranchCards(); setupRootPhotoUploads(); renderSelects(); renderHeritage(); renderBranchDetail(''); renderDirectory(''); renderSubmissions(); renderRegistrations();
+setupHeroLogoUpload(); renderBranchCards(); setupRootPhotoUploads(); renderSelects(); renderHeritage(); renderBranchDetail(''); renderDirectory(''); renderSubmissions(); renderRegistrations(); setupCalendarTools(); updateHonestStats();
 branchSelect.addEventListener('change', event => { openBranchPanel(); renderBranchDetail(event.target.value); });
 searchBox.addEventListener('input', event => renderDirectory(event.target.value));
 document.querySelector('#downloadCsv').addEventListener('click', downloadRegistryCsv);
 document.querySelector('#printBranch').addEventListener('click', () => window.print());
 document.querySelector('#downloadNotifications')?.addEventListener('click', downloadNotificationsCsv);
 document.querySelector('#downloadRegistrations')?.addEventListener('click', downloadRegistrationsCsv);
-notificationForm?.addEventListener('submit', event => { event.preventDefault(); const form = new FormData(notificationForm); const branch = data.branches.find(item => item.id === form.get('branch')); const item = Object.fromEntries(form.entries()); item.branchName = branch?.name || item.branch; item.emailOptIn = form.has('emailOptIn'); item.textOptIn = form.has('textOptIn'); item.createdAt = new Date().toISOString(); const items = getNotifications(); items.unshift(item); saveNotifications(items); notificationForm.reset(); notifyBranch.value = data.branches[0].id; alert('Saved to the reunion update list on this device. Next step: connect this to email/text broadcast.'); });
+notificationForm?.addEventListener('submit', event => { event.preventDefault(); const form = new FormData(notificationForm); const branch = data.branches.find(item => item.id === form.get('branch')); const item = Object.fromEntries(form.entries()); item.branchName = branch?.name || item.branch; item.emailOptIn = form.has('emailOptIn'); item.textOptIn = form.has('textOptIn'); item.createdAt = new Date().toISOString(); const items = getNotifications(); items.unshift(item); saveNotifications(items); notificationForm.reset(); notifyBranch.value = data.branches[0].id; alert('Saved to the reunion update list on this device. Use Download Signups CSV to export. Live email/text blasts need backend connection.'); });
 registrationForm?.addEventListener('submit', event => { event.preventDefault(); const form = new FormData(registrationForm); const branch = data.branches.find(item => item.id === form.get('branch')); const item = Object.fromEntries(form.entries()); item.branchName = branch?.name || item.branch; item.createdAt = new Date().toISOString(); const items = getRegistrations(); items.unshift(item); saveRegistrations(items); renderRegistrations(); registrationForm.reset(); registrationBranch.value = data.branches[0].id; alert('Registration saved as a draft on this device. Next step: connect this to the live database.'); });
 familyForm.addEventListener('submit', event => { event.preventDefault(); const form = new FormData(familyForm); const branch = data.branches.find(item => item.id === form.get('branch')); const item = Object.fromEntries(form.entries()); item.branchName = branch?.name || item.branch; item.createdAt = new Date().toISOString(); const items = getSubmissions(); items.unshift(item); saveSubmissions(items); renderSubmissions(); familyForm.reset(); formBranch.value = data.branches[0].id; alert('Family update saved as a draft on this device.'); });
 document.querySelector('#copySubmission').addEventListener('click', async () => { const [latest] = getSubmissions(); if (!latest) return alert('No family update draft to copy yet.'); const text = `Morant Family Bloodline Submission\n\nName: ${latest.submitter}\nEmail: ${latest.email}\nBranch: ${latest.branchName}\nRelationship: ${latest.relationship}\n\nFamily Members:\n${latest.familyMembers}\n\nMedia Notes:\n${latest.mediaNotes}`; await navigator.clipboard.writeText(text); alert('Latest family update copied.'); });
