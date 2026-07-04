@@ -23,20 +23,16 @@
 .fan-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .fan-actions button { background: #17120b; color: #f1c979; border: 1px solid rgba(241,201,121,.55); border-radius: 999px; padding: 10px 16px; text-transform: uppercase; font-weight: 800; }
 .fan-layout { display: grid; grid-template-columns: minmax(320px, 1.35fr) minmax(260px,.65fr) minmax(260px,.65fr); gap: 18px; align-items: stretch; }
-.fan-chart { min-height: 620px; border: 1px solid rgba(214,167,78,.35); border-radius: 18px; background: radial-gradient(circle at 50% 88%, rgba(214,167,78,.16), transparent 22%), #070707; position: relative; overflow: hidden; }
-.fan-arc { position: absolute; left: 50%; bottom: -42%; transform: translateX(-50%); border: 1px solid rgba(255,255,255,.18); border-bottom: 0; border-radius: 50% 50% 0 0; pointer-events: none; }
-.fan-arc-1 { width: 44%; height: 44%; }
-.fan-arc-2 { width: 70%; height: 70%; }
-.fan-arc-3 { width: 94%; height: 94%; }
-.fan-node { border: 1px solid rgba(255,255,255,.2); color: #fff; background: linear-gradient(135deg, var(--c), rgba(0,0,0,.65)); cursor: pointer; box-shadow: 0 10px 28px rgba(0,0,0,.35); text-align: center; font-family: Georgia, serif; }
-.fan-node:hover, .fan-node.is-active { outline: 3px solid #d6a74e; z-index: 5; }
-.fan-node strong { display: block; font-size: 14px; line-height: 1.15; }
-.fan-node span { display: block; font-size: 12px; opacity: .88; margin-top: 3px; }
-.fan-center { position: absolute; left: 50%; bottom: 18%; transform: translateX(-50%); width: 168px; height: 168px; border-radius: 50%; display: grid; place-items: center; padding: 18px; }
-.fan-ring { position: absolute; left: var(--x); top: var(--y); transform: translate(-50%,-50%); width: 126px; min-height: 86px; border-radius: 14px; padding: 10px; }
-.fan-ring-1 { width: 150px; min-height: 96px; }
-.fan-ring-2 { width: 134px; min-height: 90px; }
-.fan-ring-3 { width: 120px; min-height: 82px; }
+.fan-chart { min-height: 620px; border: 1px solid rgba(214,167,78,.35); border-radius: 18px; background: radial-gradient(circle at 50% 88%, rgba(214,167,78,.16), transparent 22%), #070707; position: relative; overflow: auto; display: grid; place-items: center; }
+.fan-svg { width: min(100%, 860px); min-width: 720px; height: auto; display: block; }
+.fan-segment { cursor: pointer; }
+.fan-segment path { stroke: rgba(255,255,255,.33); stroke-width: 1.4; transition: filter .15s ease, stroke .15s ease, transform .15s ease; }
+.fan-segment:hover path, .fan-segment.is-active path { stroke: #f1c979; stroke-width: 4; filter: brightness(1.2) drop-shadow(0 0 10px rgba(241,201,121,.45)); }
+.fan-label { fill: #fff; text-anchor: middle; dominant-baseline: middle; pointer-events: none; font-family: Georgia, serif; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,.9); }
+.fan-center-ring { fill: #5f5f5f; stroke: #f1f1f1; stroke-width: 2; }
+.fan-center-text, .fan-center-years { fill: #fff; text-anchor: middle; font-family: Georgia, serif; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,.9); }
+.fan-center-text { font-size: 18px; }
+.fan-center-years { font-size: 15px; fill: #f1c979; }
 .fan-detail, .heritage-hints { border: 1px solid rgba(214,167,78,.35); border-radius: 16px; background: linear-gradient(135deg, rgba(214,167,78,.08), rgba(255,255,255,.03)); padding: 22px; }
 .fan-detail h3, .heritage-hints h3 { font-family: Georgia, serif; color: #f1c979; margin-top: 0; }
 .fan-years { color: #f1c979; font-size: 20px; }
@@ -86,6 +82,5 @@
 .login-box button { padding: 12px 14px; border: 0; border-radius: 8px; background: #050505; color: #fff; font-weight: 900; text-transform: uppercase; }
 .login-close { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50% !important; padding: 0 !important; }
 #logoutButton { background: #7d1c17; width: 100%; margin: 4px 0 12px; }
-@media (max-width: 900px) { .fan-layout { grid-template-columns: 1fr; } .fan-chart { min-height: 560px; } .fan-ring { width: 108px; min-height: 74px; } .fan-node strong { font-size: 12px; } .fan-node span { font-size: 10px; } }
-@media (max-width: 760px) { .topbar { position: sticky; top: 0; } .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; } .hero-left { text-align: center; margin: 0 auto; order: 1; } .hero-logo { order: 2; } .editable-logo-area { width: 100%; min-height: 360px !important; padding: 14px; } .logo-upload-card { min-height: 280px; } .official-reunion-logo { width: min(430px, 98vw); max-height: 340px; margin: -10px auto 0; } .hero-main-btn { max-width: 360px; margin: 0 auto; } .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fan-section { padding: 28px 14px; } .fan-header { display: block; } .fan-chart { min-height: 500px; } .fan-center { width: 130px; height: 130px; bottom: 15%; } .fan-ring { transform: translate(-50%,-50%) scale(.86); } }
-@media (max-width: 390px) { .hero-left h1 { font-size: 38px; } .hero-left h1 em { font-size: 44px; } .tagline { font-size: 16px; } .official-reunion-logo { width: 100%; max-height: 330px; } .quick-actions { grid-template-columns: 1fr; } .fan-ring { transform: translate(-50%,-50%) scale(.74); } }
+@media (max-width: 900px) { .fan-layout { grid-template-columns: 1fr; } .fan-chart { min-height: 560px; justify-content: start; } .fan-svg { min-width: 760px; } }
+@media (max-width: 760px) { .topbar { position: sticky; top: 0; } .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; } .hero-left { text-align: center; margin: 0 auto; order: 1; } .hero-logo { order: 2; } .editable-logo-area { width: 100%; min-height: 360px !important; padding: 14px; } .logo-upload-card { min-height: 280px; } .official-reunion-logo { width: min(430px, 98vw); max-height: 340px; margin: -10px auto 0; } .hero-main-btn { max-width: 360px; margin: 0 auto; } .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .fan-section { padding: 28px 14px; } .fan-header { display: block; } .fan-chart { min-height: 460px; } }
