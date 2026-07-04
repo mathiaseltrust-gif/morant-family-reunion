@@ -14,13 +14,8 @@
 .logo-tools button { background: #111; color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: 10px 16px; text-transform: uppercase; font-weight: 700; }
 .logo-ready .logo-upload-card { display: none; }
 .logo-ready .hidden-logo { display: block; }
-
 .branch-panel { display: none; }
 .branch-panel.is-open { display: block; }
-.hidden-admin { display: inline-block !important; margin-top: 12px; background: #111; color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: 6px; padding: 10px 16px; text-transform: uppercase; font-weight: 700; }
-.calendar-btn { border: 0; cursor: pointer; margin-top: 10px; }
-.admin-note { color: rgba(255,255,255,.72) !important; font: 13px Arial, sans-serif; text-transform: none !important; line-height: 1.4; }
-
 .profile-photo-upload { width: 108px; height: 108px; border: 1px dashed #888; border-radius: 50%; overflow: hidden; display: grid; place-items: center; cursor: pointer; background: #fff8ed; color: #111; margin: 8px auto 12px; position: relative; }
 .profile-photo-upload input { display: none; }
 .profile-photo-upload img { width: 100%; height: 100%; object-fit: cover; display: none; }
@@ -37,16 +32,10 @@
 .directory-item strong, .directory-item span { grid-column: 2; }
 .directory-item .profile-photo-block { grid-row: 1 / span 2; }
 .directory-item .profile-photo-upload { width: 72px; height: 72px; }
-
-@media (max-width: 760px) {
-  .topbar { position: sticky; top: 0; }
-  .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; }
-  .hero-left { text-align: center; margin: 0 auto; order: 1; }
-  .hero-logo { order: 2; }
-  .editable-logo-area { width: 100%; min-height: 360px !important; padding: 14px; }
-  .logo-upload-card { min-height: 280px; }
-  .official-reunion-logo { width: min(430px, 98vw); max-height: 340px; margin: -10px auto 0; }
-  .hero-main-btn { max-width: 360px; margin: 0 auto; }
-  .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+.calendar-btn { margin-top: 10px; border: 0; cursor: pointer; }
+.notification-tools { grid-column: 1 / -1; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 10px; padding: 12px; }
+.notification-tools strong { margin-right: auto; }
+.notification-tools button { background: #f7efe3; color: #111; border: 0; border-radius: 6px; padding: 11px 14px; text-transform: uppercase; font-weight: 800; }
+.admin-note { font: 12px/1.4 Arial, sans-serif; opacity: .85; margin: 8px 0 0; }
+@media (max-width: 760px) { .topbar { position: sticky; top: 0; } .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; } .hero-left { text-align: center; margin: 0 auto; order: 1; } .hero-logo { order: 2; } .editable-logo-area { width: 100%; min-height: 360px !important; padding: 14px; } .logo-upload-card { min-height: 280px; } .official-reunion-logo { width: min(430px, 98vw); max-height: 340px; margin: -10px auto 0; } .hero-main-btn { max-width: 360px; margin: 0 auto; } .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 390px) { .hero-left h1 { font-size: 38px; } .hero-left h1 em { font-size: 44px; } .tagline { font-size: 16px; } .official-reunion-logo { width: 100%; max-height: 330px; } .quick-actions { grid-template-columns: 1fr; } }
