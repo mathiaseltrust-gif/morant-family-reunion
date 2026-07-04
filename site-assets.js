@@ -1,6 +1,6 @@
 (() => {
   const LOGO_URL = 'assets/morant-reunion-logo.svg';
-  function applyOfficialLogo() {
+  function applyLogo() {
     const img = document.querySelector('#heroLogoPreview');
     const area = document.querySelector('.editable-logo-area');
     if (img) {
@@ -8,8 +8,8 @@
       img.classList.remove('hidden-logo');
       img.style.display = 'block';
     }
-    if (area) area.classList.add('logo-ready', 'official-logo-active');
+    if (area) area.classList.add('logo-ready');
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyOfficialLogo);
-  else applyOfficialLogo();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyLogo);
+  else applyLogo();
 })();
