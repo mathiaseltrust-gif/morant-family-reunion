@@ -35,8 +35,17 @@
         <p class="tagline">Honoring Our Ancestors<br>Preserving Our Legacy<br>Building Future Generations</p>
         <a class="hero-main-btn" href="#explore">Explore the Bloodline</a>
       </div>
-      <div class="hero-logo" aria-label="Morant Family Reunion Texas logo">
-        <img class="official-reunion-logo" src="assets/morant-reunion-logo.svg" alt="Morant Family Reunion 2026 San Antonio Texas logo" />
+      <div class="hero-logo editable-logo-area" aria-label="Upload reunion logo area">
+        <img id="heroLogoPreview" class="official-reunion-logo hidden-logo" alt="Morant Family Reunion 2026 logo preview" />
+        <label class="logo-upload-card" for="heroLogoUpload">
+          <span class="upload-icon">＋</span>
+          <strong>Upload Reunion Logo</strong>
+          <small>Use the black-background logo here. It will preview on this device.</small>
+        </label>
+        <input id="heroLogoUpload" class="logo-file-input" type="file" accept="image/*" />
+        <div class="logo-tools">
+          <button id="removeHeroLogo" type="button">Remove Logo</button>
+        </div>
       </div>
     </section>
 
