@@ -2,86 +2,17 @@
 
 .hero-logo {
   transform-origin: center;
+  min-height: auto !important;
+  display: grid;
+  place-items: center;
+  overflow: visible !important;
 }
 
-.reunion-logo-svg,
 .official-reunion-logo {
   display: block;
-  width: min(650px, 95vw);
+  width: min(690px, 95vw);
   height: auto;
-  filter: drop-shadow(0 22px 32px rgba(0,0,0,.75));
-  margin: 0 auto;
-}
-
-.official-reunion-logo {
-  image-rendering: auto;
-  object-fit: contain;
-}
-
-.mini-reunion-logo-img {
-  display: block;
-  width: 100%;
-  max-width: 260px;
-  margin: 0 auto 10px;
-  filter: drop-shadow(0 10px 18px rgba(0,0,0,.75));
-}
-
-.reunion-logo-svg .logo-arc {
-  fill: #f7f2ea;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 76px;
-  font-weight: 800;
-  letter-spacing: 18px;
-  transform: rotate(-8deg);
-  transform-origin: 500px 120px;
-}
-
-.reunion-logo-svg .logo-hat path:not(.hat-cut):not(.hat-band),
-.reunion-logo-svg .texas-line {
-  fill: none;
-  stroke: #f7f2ea;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.reunion-logo-svg .logo-hat path:not(.hat-cut):not(.hat-band) {
-  fill: #f7f2ea;
-  stroke-width: 0;
-}
-
-.reunion-logo-svg .hat-cut,
-.reunion-logo-svg .hat-band {
-  fill: #050505;
-}
-
-.reunion-logo-svg .texas-line {
-  stroke-width: 28px;
-}
-
-.reunion-logo-svg .logo-year,
-.reunion-logo-svg .logo-city,
-.reunion-logo-svg .logo-family {
-  fill: #f7f2ea;
-  font-family: Georgia, 'Times New Roman', serif;
-}
-
-.reunion-logo-svg .logo-year {
-  font-size: 70px;
-  font-weight: 400;
-}
-
-.reunion-logo-svg .logo-city {
-  font-size: 44px;
-}
-
-.reunion-logo-svg .logo-family {
-  font-size: 88px;
-  font-weight: 700;
-}
-
-.reunion-logo-svg .logo-star {
-  fill: #b2171d;
-  font-size: 118px;
+  filter: drop-shadow(0 24px 34px rgba(0,0,0,.75));
 }
 
 @media (max-width: 760px) {
@@ -105,12 +36,8 @@
 
   .hero-logo {
     order: 2;
-    min-height: auto;
-    transform: none;
-    overflow: visible;
   }
 
-  .reunion-logo-svg,
   .official-reunion-logo {
     width: min(430px, 98vw);
     margin: -10px auto 0;
@@ -139,7 +66,6 @@
     font-size: 16px;
   }
 
-  .reunion-logo-svg,
   .official-reunion-logo {
     width: 108vw;
     margin-left: -4vw;
