@@ -1,18 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Morant Family Reunion 2026 San Antonio Texas logo">
-  <rect width="1000" height="1000" fill="#050505"/>
-  <text x="500" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="76" font-weight="700" letter-spacing="18" fill="#f7f2ea" transform="rotate(-7 500 118)">MORANT</text>
-  <g fill="none" stroke="#f7f2ea" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M390 238 C420 205 530 205 562 240 C570 255 575 302 578 330 C520 318 450 320 392 340 C378 305 379 260 390 238 Z" stroke-width="14" fill="#050505"/>
-    <path d="M218 342 C306 310 444 316 566 300 C688 285 748 325 710 368 C652 432 486 400 340 412 C260 418 188 390 218 342 Z" stroke-width="14" fill="#050505"/>
-    <path d="M424 226 C442 236 470 224 487 202" stroke-width="12"/>
-    <path d="M505 205 C535 238 577 246 616 229" stroke-width="12"/>
-    <path d="M390 344 C500 305 620 300 720 330 C592 332 485 356 345 424" stroke-width="14"/>
-    <path d="M292 422 L354 422 L354 353 L423 353 L423 520 L555 520 L555 447 L610 492 L745 510 L824 562 L876 562 L876 662 L914 733 L856 803 L760 834 L710 894 L625 890 L590 954 L494 919 L450 820 L382 790 L326 798 L285 758 L245 652 L145 602 L204 550 L292 550 Z" stroke-width="24"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Morant Family Reunion 2026 San Antonio Texas logo">
+  <rect width="1200" height="1200" fill="#000"/>
+  <style>
+    .white{fill:none;stroke:#fff;stroke-width:18;stroke-linecap:round;stroke-linejoin:round}.txt{fill:#fff;font-family:Georgia,serif;font-weight:700}.red{fill:#c51620}.thin{fill:none;stroke:#fff;stroke-width:10;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+  <g transform="translate(600 140)">
+    <text class="txt" font-size="92" text-anchor="middle" letter-spacing="34">MORANT</text>
   </g>
-  <text x="178" y="462" text-anchor="middle" font-family="Georgia,serif" font-size="68" fill="#f7f2ea">20</text>
-  <text x="178" y="552" text-anchor="middle" font-family="Georgia,serif" font-size="68" fill="#f7f2ea">26</text>
-  <text x="670" y="438" text-anchor="middle" font-family="Georgia,serif" font-size="44" fill="#f7f2ea">San Antonio, TX</text>
-  <text x="550" y="585" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#f7f2ea">Family</text>
-  <text x="535" y="690" text-anchor="middle" font-family="Georgia,serif" font-size="92" font-weight="700" fill="#f7f2ea">Reunion</text>
-  <text x="742" y="635" text-anchor="middle" font-size="120" fill="#c92026">★</text>
+  <g transform="translate(0 35)">
+    <path class="thin" d="M425 345c45-35 210-55 345-35 42 6 43 45 6 58-106 36-234 46-375 85 37-33 21-57 24-108z"/>
+    <path class="thin" d="M380 390c-48 25-115 23-140 0-28-27-1-70 48-76 42-6 69 21 92 76z"/>
+    <path class="thin" d="M392 350c3-72 16-150 80-151 70-2 110 31 117 131-42 24-126 30-197 20z"/>
+    <path class="thin" d="M440 230c26 9 38 4 52-22M520 210c24 26 53 31 77 11"/>
+  </g>
+  <text class="txt" x="190" y="540" font-size="78" text-anchor="middle">20</text>
+  <text class="txt" x="190" y="645" font-size="78" text-anchor="middle">26</text>
+  <path class="white" d="M375 465v220H130l85 78 45 112 55 50 42-20 105-4 62 60 40 125 114 50 100 22 24-26-14-109 38-91 70-34 32-56 67-20 45-70 10-120-25-120-100-48-125 8-110-28-120 5-40-42-50-10-80 5-55 55z"/>
+  <path class="white" d="M610 405v92c0 22 36 38 54 16 34 31 75 40 114 37 43-3 85 4 126 24"/>
+  <text class="txt" x="645" y="468" font-size="54">San Antonio, TX</text>
+  <text class="txt" x="520" y="690" font-size="92">Family</text>
+  <text class="txt" x="490" y="815" font-size="92">Reunion</text>
+  <path class="red" d="M880 630l28 84 88 1-71 52 26 85-71-51-72 51 27-85-72-52 89-1z"/>
 </svg>
