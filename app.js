@@ -8,6 +8,13 @@ const directoryResults = document.querySelector('#directoryResults');
 const familyForm = document.querySelector('#familyForm');
 const submissionList = document.querySelector('#submissionList');
 
+const asPerson = item => typeof item === 'string' ? { name: item, years: '' } : item;
+const label = person => {
+  const p = asPerson(person);
+  return `${p.name}${p.years ? ` <span class="years">${p.years}</span>` : ''}${p.note ? ` <em>${p.note}</em>` : ''}`;
+};
+const plain = person => asPerson(person).name;
+
 function getSubmissions() {
   return JSON.parse(localStorage.getItem('morantFamilySubmissions') || '[]');
 }
@@ -18,11 +25,19 @@ function saveSubmissions(items) {
 
 function allPeople() {
   const people = [];
+  data.rootCouple.forEach(root => people.push({ name: root.name, years: root.years, branch: 'Founding Elders', generation: root.role || 'Founding Elder' }));
+  data.maternalAncestry.forEach(person => people.push({ ...person, branch: 'Maternal Ancestry', generation: 'Documented ancestor / relative' }));
   data.branches.forEach(branch => {
-    people.push({ name: branch.name, branch: branch.name, generation: 'Branch Elder' });
-    branch.children.forEach(name => people.push({ name, branch: branch.name, generation: 'Child / Beneficiary' }));
+    people.push({ name: branch.name, years: branch.years, branch: branch.name, generation: 'Branch Elder' });
+    branch.children.forEach(child => {
+      const p = asPerson(child);
+      people.push({ name: p.name, years: p.years, branch: branch.name, generation: 'Child / Beneficiary' });
+    });
     branch.grandchildren.forEach(group => {
-      group.names.forEach(name => people.push({ name, branch: branch.name, generation: `Grandchild of ${group.parent}` }));
+      group.names.forEach(grandchild => {
+        const p = asPerson(grandchild);
+        people.push({ name: p.name, years: p.years, branch: branch.name, generation: `Grandchild of ${group.parent}` });
+      });
     });
   });
   return people;
@@ -33,6 +48,7 @@ function renderBranchCards() {
     <article class="branch-card" style="--branch-color:${branch.color}">
       <p class="eyebrow">Branch Elder</p>
       <h3>${branch.name}</h3>
+      ${branch.years ? `<p class="years big-years">${branch.years}</p>` : ''}
       <p class="count">${branch.children.length} children listed • ${branch.grandchildren.reduce((n, g) => n + g.names.length, 0)} grandchildren listed</p>
       <button type="button" data-branch-button="${branch.id}">View Branch</button>
     </article>
@@ -41,7 +57,7 @@ function renderBranchCards() {
     button.addEventListener('click', () => {
       branchSelect.value = button.dataset.branchButton;
       renderBranchDetail(button.dataset.branchButton);
-      document.querySelector('#branches').scrollIntoView({ behavior: 'smooth' });
+      branchDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 }
@@ -52,18 +68,35 @@ function renderSelects() {
   formBranch.innerHTML = options;
 }
 
+function renderHeritage() {
+  const heritage = document.querySelector('#heritageContent');
+  const ancestry = document.querySelector('#ancestryList');
+  if (!heritage || !ancestry) return;
+  heritage.innerHTML = `
+    <h3>${data.heritage.title}</h3>
+    <p>${data.heritage.summary}</p>
+    <ul>${data.heritage.records.map(record => `<li>${record}</li>`).join('')}</ul>
+    <p class="note">${data.heritage.note}</p>
+  `;
+  ancestry.innerHTML = data.maternalAncestry.map(person => `
+    <div class="directory-item"><strong>${person.name}</strong><span>${person.years || ''}${person.note ? ` • ${person.note}` : ''}</span></div>
+  `).join('');
+}
+
 function renderBranchDetail(branchId = data.branches[0].id) {
   const branch = data.branches.find(item => item.id === branchId) || data.branches[0];
   const childList = branch.children.length
-    ? branch.children.map(name => `<li>${name}</li>`).join('')
+    ? branch.children.map(child => `<li>${label(child)}</li>`).join('')
     : '<li class="empty-slot">Children not listed yet</li>';
   const grandchildCards = branch.children.map(child => {
-    const group = branch.grandchildren.find(item => item.parent === child);
+    const childName = plain(child);
+    const group = branch.grandchildren.find(item => item.parent === childName);
     const names = group?.names?.length ? group.names : [];
     return `
       <article class="generation-card">
-        <h4>Children of ${child}</h4>
-        <ul>${names.length ? names.map(name => `<li>${name}</li>`).join('') : '<li class="empty-slot">Open slot for grandchildren</li><li class="empty-slot">Open slot for great-grandchildren</li>'}</ul>
+        <h4>Children of ${childName}</h4>
+        ${group?.note ? `<p class="note">${group.note}</p>` : ''}
+        <ul>${names.length ? names.map(name => `<li>${label(name)}</li>`).join('') : '<li class="empty-slot">Open slot for children</li><li class="empty-slot">Open slot for grandchildren</li><li class="empty-slot">Open slot for future generations</li>'}</ul>
       </article>
     `;
   }).join('');
@@ -73,9 +106,11 @@ function renderBranchDetail(branchId = data.branches[0].id) {
       <div>
         <p class="eyebrow">Branch Elder</p>
         <h2>${branch.name}</h2>
+        ${branch.years ? `<p class="years big-years">${branch.years}</p>` : ''}
       </div>
       <span>${branch.children.length} children • ${branch.grandchildren.reduce((n, g) => n + g.names.length, 0)} grandchildren</span>
     </div>
+    ${branch.notes ? `<div class="callout">${branch.notes}</div>` : ''}
     <div class="generation-grid">
       <article class="generation-card">
         <h4>Generation 3 — Their Children</h4>
@@ -92,14 +127,14 @@ function renderDirectory(filter = '') {
   directoryResults.innerHTML = people.map(person => `
     <div class="directory-item">
       <strong>${person.name}</strong>
-      <span>${person.generation} • ${person.branch}</span>
+      <span>${person.years ? `${person.years} • ` : ''}${person.generation} • ${person.branch}</span>
     </div>
   `).join('') || '<p>No matches found.</p>';
 }
 
 function renderSubmissions() {
   const items = getSubmissions();
-  submissionList.innerHTML = items.map((item, index) => `
+  submissionList.innerHTML = items.map((item) => `
     <div class="submission-item">
       <strong>${item.submitter || 'Unnamed submission'} — ${item.branchName}</strong>
       <pre>${item.familyMembers || 'No family member details entered yet.'}</pre>
@@ -109,8 +144,8 @@ function renderSubmissions() {
 }
 
 function downloadCsv() {
-  const rows = [['Name', 'Branch', 'Generation']];
-  allPeople().forEach(person => rows.push([person.name, person.branch, person.generation]));
+  const rows = [['Name', 'Years', 'Branch', 'Generation']];
+  allPeople().forEach(person => rows.push([person.name, person.years || '', person.branch, person.generation]));
   const csv = rows.map(row => row.map(cell => `"${String(cell).replaceAll('"', '""')}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
@@ -123,6 +158,7 @@ function downloadCsv() {
 
 renderBranchCards();
 renderSelects();
+renderHeritage();
 renderBranchDetail();
 renderDirectory();
 renderSubmissions();
