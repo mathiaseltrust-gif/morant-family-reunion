@@ -1,49 +1,10 @@
 /* Final mobile-first UI layer for Morant Family Reunion */
 
-.hero-logo {
-  transform-origin: center;
-  min-height: auto !important;
-  display: grid;
-  place-items: center;
-  overflow: visible !important;
-}
-
-.editable-logo-area {
-  width: min(690px, 95vw);
-  min-height: 520px !important;
-  border: 1px solid rgba(255,255,255,.22);
-  border-radius: 18px;
-  background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.25) 45%, rgba(0,0,0,.55));
-  padding: 22px;
-  position: relative;
-}
-
-.official-reunion-logo {
-  display: block;
-  width: min(650px, 92vw);
-  max-height: 500px;
-  object-fit: contain;
-  height: auto;
-  filter: drop-shadow(0 24px 34px rgba(0,0,0,.75));
-}
-
+.hero-logo { transform-origin: center; min-height: auto !important; display: grid; place-items: center; overflow: visible !important; }
+.editable-logo-area { width: min(690px, 95vw); min-height: 520px !important; border: 1px solid rgba(255,255,255,.22); border-radius: 18px; background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.25) 45%, rgba(0,0,0,.55)); padding: 22px; position: relative; }
+.official-reunion-logo { display: block; width: min(650px, 92vw); max-height: 500px; object-fit: contain; height: auto; filter: drop-shadow(0 24px 34px rgba(0,0,0,.75)); }
 .hidden-logo { display: none; }
-
-.logo-upload-card {
-  width: 100%;
-  min-height: 390px;
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 10px;
-  color: #f7f2ea;
-  border: 2px dashed rgba(255,255,255,.45);
-  border-radius: 16px;
-  cursor: pointer;
-  text-align: center;
-  padding: 30px;
-}
-
+.logo-upload-card { width: 100%; min-height: 390px; display: grid; place-items: center; align-content: center; gap: 10px; color: #f7f2ea; border: 2px dashed rgba(255,255,255,.45); border-radius: 16px; cursor: pointer; text-align: center; padding: 30px; }
 .logo-upload-card:hover { border-color: #c92026; }
 .logo-upload-card .upload-icon { font-size: 58px; color: #c92026; line-height: 1; }
 .logo-upload-card strong { font-size: clamp(24px, 4vw, 40px); text-transform: uppercase; }
@@ -54,49 +15,25 @@
 .logo-ready .logo-upload-card { display: none; }
 .logo-ready .hidden-logo { display: block; }
 
-.profile-photo-upload {
-  width: 108px;
-  height: 108px;
-  border: 1px dashed #888;
-  border-radius: 50%;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  background: #fff8ed;
-  color: #111;
-  margin: 8px auto 12px;
-  position: relative;
-}
+.branch-panel { display: none; }
+.branch-panel.is-open { display: block; }
+
+.profile-photo-upload { width: 108px; height: 108px; border: 1px dashed #888; border-radius: 50%; overflow: hidden; display: grid; place-items: center; cursor: pointer; background: #fff8ed; color: #111; margin: 8px auto 12px; position: relative; }
 .profile-photo-upload input { display: none; }
-.profile-photo-upload img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: none;
-}
-.profile-photo-upload span {
-  font: 11px Arial, sans-serif;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 8px;
-}
+.profile-photo-upload img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.profile-photo-upload span { font: 11px Arial, sans-serif; text-transform: uppercase; text-align: center; padding: 8px; }
 .profile-photo-upload.has-photo img { display: block; }
 .profile-photo-upload.has-photo span { display: none; }
 .photo-card .add-photo { display: none; }
 .branch-card h3:after { display: none !important; }
 .branch-card .profile-photo-upload { margin-top: 28px; }
-.branch-card .photo-remove,
-.photo-card .photo-remove {
-  background: transparent;
-  border: 1px solid currentColor;
-  border-radius: 4px;
-  padding: 6px 10px;
-  text-transform: uppercase;
-  font: 700 10px Arial, sans-serif;
-  margin: 0 auto 8px;
-  display: block;
-}
+.branch-card .photo-remove, .photo-card .photo-remove, .generation-card .photo-remove, .directory-item .photo-remove { background: transparent; border: 1px solid currentColor; border-radius: 4px; padding: 6px 10px; text-transform: uppercase; font: 700 10px Arial, sans-serif; margin: 0 auto 8px; display: block; }
+.generation-card li { list-style: none; margin: 12px 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: #fffaf0; }
+.generation-card li .profile-photo-upload { margin-left: 0; margin-right: 0; }
+.directory-item { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; }
+.directory-item strong, .directory-item span { grid-column: 2; }
+.directory-item .profile-photo-block { grid-row: 1 / span 2; }
+.directory-item .profile-photo-upload { width: 72px; height: 72px; }
 
 @media (max-width: 760px) {
   .topbar { position: sticky; top: 0; }
@@ -109,11 +46,4 @@
   .hero-main-btn { max-width: 360px; margin: 0 auto; }
   .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-
-@media (max-width: 390px) {
-  .hero-left h1 { font-size: 38px; }
-  .hero-left h1 em { font-size: 44px; }
-  .tagline { font-size: 16px; }
-  .official-reunion-logo { width: 100%; max-height: 330px; }
-  .quick-actions { grid-template-columns: 1fr; }
-}
+@media (max-width: 390px) { .hero-left h1 { font-size: 38px; } .hero-left h1 em { font-size: 44px; } .tagline { font-size: 16px; } .official-reunion-logo { width: 100%; max-height: 330px; } .quick-actions { grid-template-columns: 1fr; } }
