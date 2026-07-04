@@ -1,3 +1,21 @@
+function applyOfficialReunionLogo() {
+  if (!window.MORANT_REUNION_LOGO) return;
+  const logo = document.querySelector('.hero-logo');
+  if (logo) {
+    logo.innerHTML = `<img class="official-reunion-logo" src="${window.MORANT_REUNION_LOGO}" alt="Morant Family Reunion 2026 San Antonio Texas logo">`;
+  }
+  const mini = document.querySelector('.mini-logo');
+  if (mini) {
+    mini.innerHTML = `<img class="mini-reunion-logo-img" src="${window.MORANT_REUNION_LOGO}" alt="Morant Family Reunion 2026 logo"><b>2026</b>`;
+  }
+}
+(function loadOfficialLogoData(){
+  const script = document.createElement('script');
+  script.src = 'logo-data.js';
+  script.onload = applyOfficialReunionLogo;
+  document.head.appendChild(script);
+})();
+
 const data = window.MORANT_FAMILY_DATA;
 const branchGrid = document.querySelector('#branchGrid');
 const branchSelect = document.querySelector('#branchSelect');
