@@ -28,6 +28,7 @@
 .branch-card .photo-remove, .photo-card .photo-remove, .generation-card .photo-remove, .directory-item .photo-remove { background: transparent; border: 1px solid currentColor; border-radius: 4px; padding: 6px 10px; text-transform: uppercase; font: 700 10px Arial, sans-serif; margin: 0 auto 8px; display: block; }
 .generation-card li { list-style: none; margin: 12px 0; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: #fffaf0; }
 .generation-card li .profile-photo-upload { margin-left: 0; margin-right: 0; }
+.generation-card h5 { margin: 16px 0 6px; text-transform: uppercase; }
 .directory-item { display: grid; grid-template-columns: auto 1fr; gap: 10px 14px; align-items: center; }
 .directory-item strong, .directory-item span { grid-column: 2; }
 .directory-item .profile-photo-block { grid-row: 1 / span 2; }
@@ -37,5 +38,13 @@
 .notification-tools strong { margin-right: auto; }
 .notification-tools button { background: #f7efe3; color: #111; border: 0; border-radius: 6px; padding: 11px 14px; text-transform: uppercase; font-weight: 800; }
 .admin-note { font: 12px/1.4 Arial, sans-serif; opacity: .85; margin: 8px 0 0; }
+.admin-only { display: none !important; }
+.admin-mode .admin-only { display: initial !important; }
+.admin-mode .notification-tools { display: flex !important; }
+.child-entry-card { margin-top: 24px; padding: 18px; border: 1px solid var(--line); border-radius: 10px; background: #fff8ed; text-align: left; }
+.child-entry-card h3 { margin-top: 0; text-transform: uppercase; }
+.child-entry-card form { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 12px; }
+.child-entry-card textarea, .child-entry-card button { grid-column: 1 / -1; }
+.child-entry-card button { background: #050505; color: #fff; border: 0; border-radius: 6px; padding: 13px; text-transform: uppercase; font-weight: 800; }
 @media (max-width: 760px) { .topbar { position: sticky; top: 0; } .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; } .hero-left { text-align: center; margin: 0 auto; order: 1; } .hero-logo { order: 2; } .editable-logo-area { width: 100%; min-height: 360px !important; padding: 14px; } .logo-upload-card { min-height: 280px; } .official-reunion-logo { width: min(430px, 98vw); max-height: 340px; margin: -10px auto 0; } .hero-main-btn { max-width: 360px; margin: 0 auto; } .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 390px) { .hero-left h1 { font-size: 38px; } .hero-left h1 em { font-size: 44px; } .tagline { font-size: 16px; } .official-reunion-logo { width: 100%; max-height: 330px; } .quick-actions { grid-template-columns: 1fr; } }
