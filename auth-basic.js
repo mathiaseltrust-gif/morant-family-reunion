@@ -1,17 +1,11 @@
 (() => {
   const AUTH_KEY = 'morantPortalUser';
   const PASSCODES = {
-    member: 'family2026',
-    household: 'household2026',
-    elder: 'elder2026',
-    branch_admin: 'branch2026',
-    admin: 'morant2026'
+    member: 'morant2026',
+    admin: 'admin2026'
   };
   const ROLE_LABELS = {
-    member: 'Member',
-    household: 'Head of Household',
-    elder: 'Elder',
-    branch_admin: 'Branch Admin',
+    member: 'Family Member',
     admin: 'Administrator'
   };
 
@@ -20,8 +14,8 @@
   }
   function saveUser(user) {
     localStorage.setItem(AUTH_KEY, JSON.stringify(user, null, 2));
-    localStorage.setItem('morantAdminMode', user.role === 'admin' || user.role === 'branch_admin' ? 'true' : 'false');
-    document.body.classList.toggle('admin-mode', user.role === 'admin' || user.role === 'branch_admin');
+    localStorage.setItem('morantAdminMode', user.role === 'admin' ? 'true' : 'false');
+    document.body.classList.toggle('admin-mode', user.role === 'admin');
     updateLoginButton();
     window.dispatchEvent(new Event('storage'));
   }
@@ -33,23 +27,23 @@
     window.dispatchEvent(new Event('storage'));
   }
   function modalHtml() {
-    return `
-      <div id="loginModal" class="login-modal" hidden>
-        <div class="login-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
-          <button type="button" class="login-close" id="closeLogin">×</button>
-          <h2 id="loginTitle">Member Login</h2>
-          <p class="login-note">Enter your name, email, role, and the family passcode provided by the reunion admins.</p>
-          <form id="loginForm">
-            <label>Full Name<input name="name" required autocomplete="name" placeholder="Your full name" /></label>
-            <label>Email<input name="email" type="email" autocomplete="email" placeholder="name@example.com" /></label>
-            <label>Role<select name="role"><option value="member">Member</option><option value="household">Head of Household</option><option value="elder">Elder</option><option value="branch_admin">Branch Admin</option><option value="admin">Administrator</option></select></label>
-            <label>Family Passcode<input name="passcode" required type="password" autocomplete="current-password" placeholder="Enter passcode" /></label>
-            <button type="submit">Enter Family Portal</button>
-          </form>
-          <button type="button" id="logoutButton">Logout</button>
-          <p class="login-note"><strong>Current passcodes:</strong> Member family2026, Head household2026, Elder elder2026, Branch branch2026, Admin morant2026.</p>
-        </div>
-      </div>`;
+    return [
+      '<div id="loginModal" class="login-modal" hidden>',
+      '<div class="login-box" role="dialog" aria-modal="true" aria-labelledby="loginTitle">',
+      '<button type="button" class="login-close" id="closeLogin">×</button>',
+      '<h2 id="loginTitle">Member Login</h2>',
+      '<p class="login-note">Enter your name, email, role, and passcode.</p>',
+      '<form id="loginForm">',
+      '<label>Full Name<input name="name" required autocomplete="name" placeholder="Your full name" /></label>',
+      '<label>Email<input name="email" type="email" autocomplete="email" placeholder="name@example.com" /></label>',
+      '<label>Role<select name="role"><option value="member">Family Member</option><option value="admin">Administrator</option></select></label>',
+      '<label>Passcode<input name="passcode" required type="password" autocomplete="current-password" placeholder="Enter passcode" /></label>',
+      '<button type="submit">Enter Family Portal</button>',
+      '</form>',
+      '<button type="button" id="logoutButton">Logout</button>',
+      '</div>',
+      '</div>'
+    ].join('');
   }
   function ensureModal() {
     let modal = document.querySelector('#loginModal');
@@ -72,7 +66,7 @@
           name: String(form.get('name') || '').trim(),
           email: String(form.get('email') || '').trim(),
           role,
-          roleLabel: ROLE_LABELS[role] || 'Member',
+          roleLabel: ROLE_LABELS[role] || 'Family Member',
           loggedInAt: new Date().toISOString()
         });
         modal.hidden = true;
