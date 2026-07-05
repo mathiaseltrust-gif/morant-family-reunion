@@ -12,6 +12,30 @@
 .branch-panel { display: none; }
 .branch-panel.is-open { display: block; }
 
+/* Public privacy gate */
+.member-logged-out #explore,
+.member-logged-out .lower-dashboard,
+.member-logged-out #registration,
+.member-logged-out #branchPanel,
+.member-logged-out #search,
+.member-logged-out #add-family,
+.member-logged-out #heritage,
+.member-logged-out #gallery,
+.member-logged-out #stories,
+.member-logged-out #migration,
+.member-logged-out #photoUploadCenter,
+.member-logged-out #ancestryFanSection { display: none !important; }
+.member-logged-out .quick-actions a[href="#explore"],
+.member-logged-out .quick-actions a[href="#migration"] { display: none !important; }
+.member-logged-out #roots .welcome-copy p,
+.member-logged-out #roots .about-card p { max-width: 62ch; }
+.member-logged-out .root-photos .profile-photo-upload,
+.member-logged-out .root-photos .photo-remove,
+.member-logged-out .root-photos .add-photo { display: none !important; }
+.member-logged-out .root-photos .photo-card { min-height: 150px !important; padding: 24px 18px !important; }
+.member-logged-out .root-photos .heart { font-size: 36px; color: #7d1c17; }
+.member-logged-out #roots .about-card a[href="#stories"] { display: none !important; }
+
 /* Image slots */
 .profile-photo-upload { width: 118px; height: 118px; border: 2px dashed rgba(70,48,28,.45); border-radius: 50%; overflow: hidden; display: grid; place-items: center; cursor: pointer; background: radial-gradient(circle at 50% 35%, #fffaf0, #ead9bd); color: #2f2418; margin: 8px auto 12px; position: relative; box-shadow: inset 0 0 0 6px rgba(255,255,255,.55), 0 12px 24px rgba(0,0,0,.12); transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
 .profile-photo-upload:hover { transform: translateY(-1px); border-color: rgba(151,28,22,.65); box-shadow: inset 0 0 0 6px rgba(255,255,255,.55), 0 16px 30px rgba(0,0,0,.16); }
@@ -46,7 +70,7 @@
 .directory-item .photo-remove { display: none; }
 
 /* Lightweight tree / future fan image section */
-.fan-section { background: #050505; color: #f7f2ea; padding: 38px 34px; border-top: 1px solid rgba(214,167,78,.3); border-bottom: 1px solid rgba(214,167,78,.3); }
+.fan-section { display: none !important; }
 .fan-header { display: flex; justify-content: space-between; gap: 18px; align-items: end; margin-bottom: 22px; }
 .fan-header h2 { font-size: clamp(30px, 4vw, 54px); margin: 0 0 8px; font-family: Georgia, serif; }
 .fan-header p { max-width: 760px; line-height: 1.55; }
@@ -88,5 +112,5 @@
 #logoutButton { background: #7d1c17; width: 100%; margin: 4px 0 12px; }
 
 @media (max-width: 900px) { .fan-layout { grid-template-columns: 1fr; } .fan-chart { min-height: 360px; } }
-@media (max-width: 760px) { .topbar { position: sticky; top: 0; } .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; } .hero-left { text-align: center; margin: 0 auto; order: 1; } .hero-logo { order: 2; } .editable-logo-area { width: 100%; min-height: 430px !important; padding: 14px; } .official-reunion-logo { width: min(610px, 96vw) !important; max-height: 390px !important; margin: 0 auto !important; } .hero-main-btn { max-width: 360px; margin: 0 auto; } .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); } .root-photos .photo-card .profile-photo-upload { width: 132px; height: 132px; } .fan-section { padding: 28px 14px; } .fan-header { display: block; } }
+@media (max-width: 760px) { .topbar { position: sticky; top: 0; } .hero-mockup { grid-template-columns: 1fr; text-align: center; padding: 28px 18px 26px; gap: 18px; } .hero-left { text-align: center; margin: 0 auto; order: 1; } .hero-logo { order: 2; } .editable-logo-area { width: 100%; min-height: 430px !important; padding: 14px; } .official-reunion-logo { width: min(610px, 96vw) !important; max-height: 390px !important; margin: 0 auto !important; } .hero-main-btn { max-width: 360px; margin: 0 auto; } .quick-actions { grid-template-columns: 1fr; } .root-photos .photo-card .profile-photo-upload { width: 132px; height: 132px; } .fan-section { padding: 28px 14px; } .fan-header { display: block; } }
 @media (max-width: 390px) { .quick-actions { grid-template-columns: 1fr; } .profile-photo-upload { width: 104px; height: 104px; } .editable-logo-area { min-height: 390px !important; } .official-reunion-logo { max-height: 350px !important; } }
