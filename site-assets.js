@@ -1,5 +1,5 @@
 (() => {
-  const LOGO_URL = 'assets/morant-reunion-logo.svg';
+  const LOGO_URL = 'assets/Untitled%20design%20(3).PNG';
   function applyLogo() {
     const img = document.querySelector('#heroLogoPreview');
     const area = document.querySelector('.editable-logo-area');
