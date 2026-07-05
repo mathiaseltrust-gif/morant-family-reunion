@@ -51,14 +51,24 @@
     URL.revokeObjectURL(anchor.href);
   }
 
+  function loadLiveLineage() {
+    if (document.querySelector('script[data-live-lineage]')) return;
+    const script = document.createElement('script');
+    script.src = 'live-lineage.js';
+    script.setAttribute('data-live-lineage', 'true');
+    document.body.appendChild(script);
+  }
+
   function render() {
     const card = document.querySelector('#reunion');
-    if (!card || card.querySelector('.reunion-details')) return;
-    card.insertAdjacentHTML('beforeend', '<div class="reunion-details"><p><strong>Dates:</strong> July 24–26, 2026</p><p><strong>Location:</strong> ' + reunion.location + '</p><p><strong>Meeting dial-in:</strong> ' + reunion.nextMeeting.dialIn + '<br><strong>Access code:</strong> ' + reunion.nextMeeting.accessCode + '</p><p>' + reunion.nextMeeting.times.join(' • ') + '</p><p><strong>Contact:</strong> ' + reunion.contact.name + ' ' + reunion.contact.phone + '</p><p><strong>Payment:</strong> Cash App ' + reunion.contact.cashApp + ' / Zelle ' + reunion.contact.zelle + '</p><p><strong>Cost:</strong> ' + reunion.cost + '</p></div>');
-    setTimeout(() => {
-      const button = document.querySelector('#downloadCalendar');
-      if (button) button.onclick = downloadCalendar;
-    }, 300);
+    if (card && !card.querySelector('.reunion-details')) {
+      card.insertAdjacentHTML('beforeend', '<div class="reunion-details"><p><strong>Dates:</strong> July 24–26, 2026</p><p><strong>Location:</strong> ' + reunion.location + '</p><p><strong>Meeting dial-in:</strong> ' + reunion.nextMeeting.dialIn + '<br><strong>Access code:</strong> ' + reunion.nextMeeting.accessCode + '</p><p>' + reunion.nextMeeting.times.join(' • ') + '</p><p><strong>Contact:</strong> ' + reunion.contact.name + ' ' + reunion.contact.phone + '</p><p><strong>Payment:</strong> Cash App ' + reunion.contact.cashApp + ' / Zelle ' + reunion.contact.zelle + '</p><p><strong>Cost:</strong> ' + reunion.cost + '</p></div>');
+      setTimeout(() => {
+        const button = document.querySelector('#downloadCalendar');
+        if (button) button.onclick = downloadCalendar;
+      }, 300);
+    }
+    loadLiveLineage();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
