@@ -28,7 +28,7 @@
     section.className = 'panel member-directory needs-member-login';
     section.innerHTML = `
       <h2>Family Lineage Directory</h2>
-      <p>This is a member-only lineage directory. It is not a social media feed. Active members may share contact information, how they can be reached, and what they do.</p>
+      <p>This is a member-only lineage directory. It is not a social media feed. Active members may share contact information, shirt size, how they can be reached, and what they do.</p>
       <div class="directory-layout">
         <aside class="lineage-picker">
           <label>Choose parent branch<select id="directoryBranchSelect">${branchOptions()}</select></label>
@@ -43,15 +43,29 @@
           <label>Branch<select name="branchId">${branchOptions()}</select></label>
           <label>Email<input name="email" type="email" placeholder="name@example.com" /></label>
           <label>Phone<input name="phone" type="tel" placeholder="Optional" /></label>
+          <label>Shirt Size<input name="shirtSize" placeholder="Adult L, Youth M, etc." /></label>
           <label>What do you do?<input name="work" placeholder="Profession, business, service, ministry, skill, etc." /></label>
           <label>Best way to reach you<textarea name="notes" rows="3" placeholder="Optional contact notes"></textarea></label>
           <button type="submit" class="black-btn">Save My Contact Card</button>
         </form>
+        <button id="downloadMemberContacts" type="button" class="black-btn">Download Member Contacts CSV</button>
         <div id="memberContactList" class="submission-list"></div>
       </div>
     `;
     const lower = document.querySelector('.lower-dashboard');
     lower?.after(section);
+  }
+  function downloadContactsCsv() {
+    const rows = [['Name','Branch','Email','Phone','Shirt Size','What They Do','Contact Notes','Updated']];
+    getContacts().forEach(item => rows.push([item.name || '', item.branchName || '', item.email || '', item.phone || '', item.shirtSize || '', item.work || '', item.notes || '', item.updatedAt || '']));
+    const csv = rows.map(row => row.map(cell => `"${String(cell ?? '').replaceAll('"','""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'morant-member-contacts.csv';
+    a.click();
+    URL.revokeObjectURL(url);
   }
   function renderContacts() {
     const list = document.querySelector('#memberContactList');
@@ -66,6 +80,7 @@
         <strong>${item.name || 'Unnamed member'} — ${item.branchName || 'Branch not selected'}</strong>
         <p>${item.work || 'No work/service listed yet.'}</p>
         <small>${item.email || ''}${item.email && item.phone ? ' • ' : ''}${item.phone || ''}</small>
+        ${item.shirtSize ? `<p><strong>Shirt size:</strong> ${item.shirtSize}</p>` : ''}
         ${item.notes ? `<p>${item.notes}</p>` : ''}
       </div>
     `).join('');
@@ -98,6 +113,7 @@
     const button = document.querySelector('#openSelectedLineage');
     const viewFamilyButton = document.querySelector('#viewFamilyDirectory');
     const form = document.querySelector('#memberContactForm');
+    const downloadButton = document.querySelector('#downloadMemberContacts');
     if (select && !select.dataset.bound) {
       select.dataset.bound = 'true';
       select.addEventListener('change', () => renderLineage(select.value));
@@ -105,6 +121,10 @@
     if (button && !button.dataset.bound) {
       button.dataset.bound = 'true';
       button.addEventListener('click', () => renderLineage(select?.value));
+    }
+    if (downloadButton && !downloadButton.dataset.bound) {
+      downloadButton.dataset.bound = 'true';
+      downloadButton.addEventListener('click', downloadContactsCsv);
     }
     if (viewFamilyButton && !viewFamilyButton.dataset.bound) {
       viewFamilyButton.dataset.bound = 'true';
@@ -131,7 +151,7 @@
         contacts.unshift(item);
         saveContacts(contacts);
         renderContacts();
-        alert('Contact card saved on this device. Live shared directory requires backend storage.');
+        alert('Contact card saved on this device.');
       });
     }
     renderLineage(select?.value || window.MORANT_FAMILY_DATA?.branches?.[0]?.id);
