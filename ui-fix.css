@@ -36,14 +36,14 @@
 .member-logged-out .root-photos .heart { font-size: 36px; color: #7d1c17; }
 .member-logged-out #roots .about-card a[href="#stories"] { display: none !important; }
 
-.root-portrait, .blank-root-photo { width: 132px; height: 132px; border-radius: 50%; display: block; margin: 0 auto 12px; object-fit: cover; object-position: center; border: 3px solid #f1c979; box-shadow: 0 12px 26px rgba(0,0,0,.18); background: #18130f; color: #e8d9bd; }
+.root-portrait, .blank-root-photo { width: 132px; height: 132px; border-radius: 50%; display: block; margin: 0 auto 12px; object-fit: cover; object-position: 50% 18%; border: 3px solid #f1c979; box-shadow: 0 12px 26px rgba(0,0,0,.18); background: #18130f; color: #e8d9bd; }
 .blank-root-photo { display: grid; place-items: center; font: 800 42px Georgia, serif; }
 
 /* Image slots */
 .profile-photo-upload { width: 118px; height: 118px; border: 2px dashed rgba(70,48,28,.45); border-radius: 50%; overflow: hidden; display: grid; place-items: center; cursor: pointer; background: radial-gradient(circle at 50% 35%, #fffaf0, #ead9bd); color: #2f2418; margin: 8px auto 12px; position: relative; box-shadow: inset 0 0 0 6px rgba(255,255,255,.55), 0 12px 24px rgba(0,0,0,.12); transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease; }
 .profile-photo-upload:hover { transform: translateY(-1px); border-color: rgba(151,28,22,.65); box-shadow: inset 0 0 0 6px rgba(255,255,255,.55), 0 16px 30px rgba(0,0,0,.16); }
 .profile-photo-upload input { display: none; }
-.profile-photo-upload img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: none; }
+.profile-photo-upload img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: none; }
 .profile-photo-upload span { font: 800 10px/1.25 Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; text-align: center; padding: 10px; opacity: .82; }
 .profile-photo-upload span::before { content: ""; width: 34px; height: 34px; border-radius: 50%; display: block; margin: 0 auto 7px; background: linear-gradient(#6b4b2d 0 0) center 9px/16px 3px no-repeat, linear-gradient(#6b4b2d 0 0) center 9px/3px 16px no-repeat, rgba(107,75,45,.12); }
 .profile-photo-upload.has-photo { border-style: solid; border-color: #f1c979; background: #111; }
